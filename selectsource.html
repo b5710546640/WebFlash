@@ -30,7 +30,7 @@ function init() {
 }
 function handleComplete() {
 	//This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
-	exportRoot = new lib.Untitled1();
+	exportRoot = new lib.Untitled2();
 	stage = new createjs.Stage(canvas);
 	stage.addChild(exportRoot);
 	//Registers the "tick" event listener.
@@ -80,16 +80,20 @@ function handleComplete() {
 <body onload="init();" style="margin:0px;">
 
 	<div style="position: relative;">
-		<div id="animation_container" style="position: absolute; z-index: 2; bottom: 50px; width:1865px; height:130px">
-			<canvas id="canvas" width="1865" height="130"></canvas>
-			<div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:1865px; height:130px; position: absolute; left: 0px; top: 0px; right: 0px; display: block;">
-			</div>
-		</div>
-		 <div id="layer2" width="1920" height="1080"
-		   style="position: absolute; z-index: 1;"></div>
+	<div id="animation_container" style="position: absolute; z-index: 2; bottom: 50px; width:1920px; height:130px">
+		<canvas id="canvas" width="1920" height="130"></canvas>
+		<div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:1920px; height:130px; position: absolute; left: 0px; top: 0px; right: 0px; display: block;">
 		</div>
 	</div>
+	 <div id="layer2" width="1920" height="1080"
+		 style="position: absolute; z-index: 1;"></div>
+	</div>
+</div>
 
-
+	<!-- <div id="animation_container" style="background-color:rgba(255, 255, 255, 1.00); width:1920px; height:130px">
+		<canvas id="canvas" width="1920" height="130" style="position: absolute; display: block; background-color:rgba(255, 255, 255, 1.00);"></canvas>
+		<div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:1920px; height:130px; position: absolute; left: 0px; top: 0px; display: block;">
+		</div>
+	</div> -->
 </body>
 </html>

@@ -18,29 +18,29 @@ myState.create = function(){
   this.background = new Kiwi.GameObjects.StaticImage(this, this.textures.background, 0, 0);
   this.character = new Pointer( this, this.textures.characterSprite, 900, 500 );
   this.character.physics = this.components.add(new Kiwi.Components.ArcadePhysics(this.character, this.character.box));
-  this.nuclear = new Button( this, this.textures.nuclear,298,150);
-  this.water = new Button( this, this.textures.water, 656,150);
-	this.wind = new Button( this, this.textures.wind, 1014,150);
-  this.coal = new Button( this, this.textures.coal, 1372,150);
-  this.sun = new Button( this, this.textures.sun, 298,473);
-  this.underworld = new Button( this, this.textures.underworld, 656,473);
-  this.petroleum = new Button( this, this.textures.petroleum, 1014,473);
-	this.fire = new Button( this, this.textures.fire, 1372,473);
-
-  // this.belt = new Belt(this,this.textures.belt, 0,800);
+  this.coal = new Button( this, this.textures.coal,298,150);
+  this.petroleum = new Button( this, this.textures.petroleum, 656,150);
+	this.nuclear = new Button( this, this.textures.nuclear, 1014,150);
+  this.gas = new Button( this, this.textures.gas, 1372,150);
+  this.water = new Button( this, this.textures.water, 298,473);
+  this.sun = new Button( this, this.textures.sun, 656,473);
+  this.wind = new Button( this, this.textures.wind, 1014,473);
+	this.underworld = new Button( this, this.textures.underworld, 1372,473);
 
 
   this.addChild(this.background);
-  // this.addChild(this.belt);
-	this.addChild(this.sun);
+
 	this.addChild(this.underworld);
-	this.addChild(this.petroleum);
-	this.addChild(this.fire);
-  this.addChild( this.character );
-  this.addChild(this.nuclear);
-  this.addChild(this.water);
 	this.addChild(this.wind);
-  this.addChild(this.coal);
+	this.addChild(this.sun);
+	this.addChild(this.water);
+	this.addChild(this.gas);
+	this.addChild(this.nuclear);
+	this.addChild(this.petroleum);
+	this.addChild(this.coal);
+
+  this.addChild( this.character );
+
   this.control = Kiwi.Plugins.LEAPController.createController();
 }
 
@@ -78,8 +78,8 @@ myState.update = function(){
             this.water.animation.play('float');
         }else if (this.character.physics.overlaps(this.coal)) {
             this.coal.animation.play('float');
-        }else if (this.character.physics.overlaps(this.fire)) {
-            this.fire.animation.play('float');
+        }else if (this.character.physics.overlaps(this.gas)) {
+            this.gas.animation.play('float');
         }else if (this.character.physics.overlaps(this.petroleum)) {
             this.petroleum.animation.play('float');
         }else if (this.character.physics.overlaps(this.sun)) {
@@ -97,8 +97,8 @@ myState.update = function(){
             this.water.physics.velocity.y = 70;
         }else if (this.character.physics.overlaps(this.coal)) {
             this.coal.physics.velocity.y = 70;
-        }else if (this.character.physics.overlaps(this.fire)) {
-            this.fire.physics.velocity.y = 70;
+        }else if (this.character.physics.overlaps(this.gas)) {
+            this.gas.physics.velocity.y = 70;
         }else if (this.character.physics.overlaps(this.petroleum)) {
             this.petroleum.physics.velocity.y = 70;
         }else if (this.character.physics.overlaps(this.sun)) {
@@ -204,7 +204,7 @@ loadingState.preload = function(){
 	this.addSpriteSheet('wind','button/btn3_wind.png',250,300);
 	this.addSpriteSheet('sun','button/btn4_sun.png',250,300);
 	this.addSpriteSheet('water','button/btn5_water.png',250,300);
-	this.addSpriteSheet('fire','button/btn6_fire.png',250,300);
+	this.addSpriteSheet('gas','button/btn6_gas.png',250,300);
 	this.addSpriteSheet('coal','button/btn7_coal.png',250,300);
 	this.addSpriteSheet('petroleum','button/btn8_petroleum.png',250,300);
 	this.addSpriteSheet('belt','test-belt.png',1920,20);
