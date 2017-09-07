@@ -11,7 +11,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="authoring-tool" content="Adobe_Animate_CC">
-<title>HTML_20สายพาน</title>
+<title>สายพานใหม่</title>
 <!-- write your code here -->
 <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
 <script src="http://js.leapmotion.com/leap-0.6.0.js"></script>
@@ -19,7 +19,7 @@
 <script type="text/javascript" src="kiwi.js"></script>
 <script type="text/javascript" src="selectedButton2.js"></script>
 <script src="LEAPController-0.1.4.js"></script>
-<script src="HTML_20สายพาน.js"></script>
+<script src="สายพานใหม่.js"></script>
 <script>
 var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
 function init() {
@@ -30,7 +30,7 @@ function init() {
 }
 function handleComplete() {
 	//This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
-	exportRoot = new lib.Untitled3();
+	exportRoot = new lib.Untitled1();
 	stage = new createjs.Stage(canvas);
 	stage.addChild(exportRoot);
 	//Registers the "tick" event listener.
@@ -80,9 +80,9 @@ function handleComplete() {
 <body onload="init();" style="margin:0px;">
 
 	<div style="position: relative;">
-		<div id="animation_container" style="position: absolute; z-index: 2; bottom: 0; vertical-align: bottom;">
-			<canvas id="canvas" width="1920" height="1080" ></canvas>
-			<div id="dom_overlay_container" style="pointer-events:none; vertical-align: bottom; overflow:hidden; width:1920px; height:1080px; position: absolute; display: inline-block;">
+		<div id="animation_container" style="position: absolute; z-index: 2; bottom: 50px; width:1865px; height:130px">
+			<canvas id="canvas" width="1865" height="130"></canvas>
+			<div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:1865px; height:130px; position: absolute; left: 0px; top: 0px; right: 0px; display: block;">
 			</div>
 		</div>
 		 <div id="layer2" width="1920" height="1080"

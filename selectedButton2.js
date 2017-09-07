@@ -18,12 +18,14 @@ myState.create = function(){
   this.background = new Kiwi.GameObjects.StaticImage(this, this.textures.background, 0, 0);
   this.character = new Pointer( this, this.textures.characterSprite, 350, 100 );
   this.character.physics = this.components.add(new Kiwi.Components.ArcadePhysics(this.character, this.character.box));
-  this.nuclear = new Button( this, this.textures.nuclear,500,225);
-  this.water = new Button( this, this.textures.water, 850,225);
-  this.coal = new Button( this, this.textures.coal, 1200,225);
-  this.nuclear2 = new Button( this, this.textures.nuclear, 500,550);
-  this.water2 = new Button( this, this.textures.water, 850,550);
-  this.coal2 = new Button( this, this.textures.coal, 1200,550);
+  this.nuclear = new Button( this, this.textures.nuclear,300,150);
+  this.water = new Button( this, this.textures.water, 600,150);
+	this.wind = new Button( this, this.textures.wind, 900,150);
+  this.coal = new Button( this, this.textures.coal, 1200,150);
+  this.sun = new Button( this, this.textures.sun, 300,473);
+  this.underworld = new Button( this, this.textures.underworld, 600,473);
+  this.petroleum = new Button( this, this.textures.petroleum, 900,473);
+	this.fire = new Button( this, this.textures.fire, 1200,473);
 
   // this.belt = new Belt(this,this.textures.belt, 0,800);
 
@@ -33,11 +35,12 @@ myState.create = function(){
   this.addChild( this.character );
   this.addChild(this.nuclear);
   this.addChild(this.water);
+	this.addChild(this.wind);
   this.addChild(this.coal);
-	this.addChild(this.nuclear2);
-  this.addChild(this.water2);
-  this.addChild(this.coal2);
-
+	this.addChild(this.sun);
+  this.addChild(this.underworld);
+  this.addChild(this.petroleum);
+	this.addChild(this.fire);
   this.control = Kiwi.Plugins.LEAPController.createController();
 }
 
@@ -64,11 +67,11 @@ myState.update = function(){
     } else if(this.control.hands[0].pointables[0].touchZone == "touching"){
         if(this.character.physics.overlaps(this.nuclear)){
             console.log("Change color");
-            this.nuclear.physics.velocity.y = 10;
+            this.nuclear.physics.velocity.y = 70;
         }else if (this.character.physics.overlaps(this.water)) {
-            this.water.physics.velocity.y = 10;
+            this.water.physics.velocity.y = 70;
         }else if (this.character.physics.overlaps(this.coal)) {
-            this.water.physics.velocity.y = 10;
+            this.water.physics.velocity.y = 70;
         }
         this.character.animation.play('press');
 
@@ -80,8 +83,6 @@ myState.update = function(){
 var Button = function (state,image, x, y){
     Kiwi.GameObjects.Sprite.call(this, state, image, x, y);
 
-		this.scaleX = 2;
-		this.scaleY = 2;
 
     this.animation.add('float', [0], 0.05, false);
     this.animation.add('lay', [1], 0.05, true);
@@ -97,9 +98,10 @@ var Button = function (state,image, x, y){
 
 		this.fallen = function(){
 			this.animation.play('lay');
-			if(this.y >= 775 ){
+			if(this.y >= 680 ){
+				console.log(this.y);
 				this.physics.velocity.y = 0;
-				this.x += 2.75;
+				this.x += 4.07;
 			}
 		}
 }
@@ -162,12 +164,14 @@ loadingState.preload = function(){
 ///////////////////////////////////////
 	//Environment Assets
 	this.addSpriteSheet('characterSprite','pointer.png',125,75);
-	this.addSpriteSheet('nuclear','nuclear.png',250,150);
-	this.addSpriteSheet('water','water.png',250,150);
-	this.addSpriteSheet('coal','coal.png',250,150);
-	this.addSpriteSheet('nuclear2','nuclear.png',250,150);
-	this.addSpriteSheet('water2','water.png',250,150);
-	this.addSpriteSheet('coal2','coal.png',250,150);
+	this.addSpriteSheet('underworld','button/btn1_underworld.png',500,300);
+	this.addSpriteSheet('nuclear','button/btn2_nuclear.png',500,300);
+	this.addSpriteSheet('wind','button/btn3_wind.png',500,300);
+	this.addSpriteSheet('sun','button/btn4_sun.png',500,300);
+	this.addSpriteSheet('water','button/btn5_water.png',500,300);
+	this.addSpriteSheet('fire','button/btn6_fire.png',500,300);
+	this.addSpriteSheet('coal','button/btn7_coal.png',500,300);
+	this.addSpriteSheet('petroleum','button/btn8_petroleum.png',500,300);
 	this.addSpriteSheet('belt','test-belt.png',1920,20);
 	this.addImage('background','background.png');
 
