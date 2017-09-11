@@ -7,6 +7,7 @@ var myGame = new Kiwi.Game("layer2","kiwiLayer",null,gameOptions);
 var myState = new Kiwi.State("myState");
 var loadingState = new Kiwi.State('loadingState');
 var preloader = new Kiwi.State('preloader');
+let isloadingSomePage = false;
 
 myState.preload = function(){
   Kiwi.State.prototype.preload.call(this);
@@ -18,7 +19,8 @@ myState.create = function(){
   this.background = new Kiwi.GameObjects.StaticImage(this, this.textures.background, 0, 0);
   this.character = new Pointer( this, this.textures.characterSprite, 900, 500 );
   this.character.physics = this.components.add(new Kiwi.Components.ArcadePhysics(this.character, this.character.box));
-  this.coal = new Button( this, this.textures.coal,298,150);
+	this.buttonGroup = new Kiwi.Group(this);
+	this.coal = new Button( this, this.textures.coal,298,150);
   this.petroleum = new Button( this, this.textures.petroleum, 656,150);
 	this.nuclear = new Button( this, this.textures.nuclear, 1014,150);
   this.gas = new Button( this, this.textures.gas, 1372,150);
@@ -30,15 +32,16 @@ myState.create = function(){
 
   this.addChild(this.background);
 
-	this.addChild(this.underworld);
-	this.addChild(this.wind);
-	this.addChild(this.sun);
-	this.addChild(this.water);
-	this.addChild(this.gas);
-	this.addChild(this.nuclear);
-	this.addChild(this.petroleum);
-	this.addChild(this.coal);
+	this.buttonGroup.addChild(this.underworld);
+	this.buttonGroup.addChild(this.wind);
+	this.buttonGroup.addChild(this.sun);
+	this.buttonGroup.addChild(this.water);
+	this.buttonGroup.addChild(this.gas);
+	this.buttonGroup.addChild(this.nuclear);
+	this.buttonGroup.addChild(this.petroleum);
+	this.buttonGroup.addChild(this.coal);
 
+	this.addChild( this.buttonGroup );
   this.addChild( this.character );
 
   this.control = Kiwi.Plugins.LEAPController.createController();
@@ -46,6 +49,8 @@ myState.create = function(){
 
 myState.update = function(){
   Kiwi.State.prototype.update.call(this);
+
+	console.log(isloadingSomePage);
 
 	if( this.petroleum.isDown ){
 		this.petroleum.physics.velocity.y = 70;
@@ -93,44 +98,26 @@ myState.update = function(){
 }
 
 myState.updateButtonAnimation = function(){
-	if(this.character.physics.overlaps(this.nuclear)){
-			console.log("Change color");
-			this.nuclear.animation.play('float');
-	}else if (this.character.physics.overlaps(this.water)) {
-			this.water.animation.play('float');
-	}else if (this.character.physics.overlaps(this.coal)) {
-			this.coal.animation.play('float');
-	}else if (this.character.physics.overlaps(this.gas)) {
-			this.gas.animation.play('float');
-	}else if (this.character.physics.overlaps(this.petroleum)) {
-			this.petroleum.animation.play('float');
-	}else if (this.character.physics.overlaps(this.sun)) {
-			this.sun.animation.play('float');
-	}else if (this.character.physics.overlaps(this.wind)) {
-			this.wind.animation.play('float');
-	}else if (this.character.physics.overlaps(this.underworld)) {
-			this.underworld.animation.play('float');
+	var chkBtn = this.buttonGroup.members;
+	for (var i = 0; i < chkBtn.length; i++) {
+		if(this.character.physics.overlaps(chkBtn[i])){
+				console.log("Change color");
+				chkBtn[i].animation.play('float');
+		}
 	}
+
 }
 
 myState.updateTheVelocity = function(){
-	if(this.character.physics.overlaps(this.nuclear)){
-			this.nuclear.physics.velocity.y = 70;
-	}else if (this.character.physics.overlaps(this.water)) {
-			this.water.physics.velocity.y = 70;
-	}else if (this.character.physics.overlaps(this.coal)) {
-			this.coal.physics.velocity.y = 70;
-	}else if (this.character.physics.overlaps(this.gas)) {
-			this.gas.physics.velocity.y = 70;
-	}else if (this.character.physics.overlaps(this.petroleum)) {
-			this.petroleum.physics.velocity.y = 70;
-	}else if (this.character.physics.overlaps(this.sun)) {
-			this.sun.physics.velocity.y = 70;
-	}else if (this.character.physics.overlaps(this.wind)) {
-			this.wind.physics.velocity.y = 70;
-	}else if (this.character.physics.overlaps(this.underworld)) {
-			this.underworld.physics.velocity.y = 70;
+
+	var chkBtn = this.buttonGroup.members;
+	for (var i = 0; i < chkBtn.length; i++) {
+		if(this.character.physics.overlaps(chkBtn[i]) && !isloadingSomePage){
+				console.log("this fall when "+isloadingSomePage );
+				chkBtn[i].physics.velocity.y = 70;
+		}
 	}
+
 }
 
 var Button = function (state,image, x, y){
@@ -148,24 +135,35 @@ var Button = function (state,image, x, y){
     Button.prototype.update = function(){
         Kiwi.GameObjects.Sprite.prototype.update.call(this);
         this.physics.update();
-				if( this.isDown ){
-					this.physics.velocity.y = 70;
-				}
+				this.loadedFinish();
+				// if( this.isDown ){
+				// 	this.physics.velocity.y = 70;
+				// }
 				this.fallen();
     };
 
+		this.isLoad = function(){
+			if(this.y === 600 && this.x >= 1920)
+			return false;
+			return true;
+		}
+
 		this.fallen = function(){
 			this.animation.play('lay');
-			if(this.y >= 600 ){
+			if(this.y >= 600){
 				console.log(this.y);
 				this.physics.velocity.y = 0;
 				this.x += 4.07;
 			}
 		};
 
-		Button.fallen = function(){
-			this.fallen;
-		}
+		this.loadedFinish = function(){
+			if(this.physics.velocity.y > 0){
+				isloadingSomePage = true;
+				this.fallen();
+			}
+		};
+
 
 }
 Kiwi.extend(Button, Kiwi.Plugins.GameObjects.TouchButton);
@@ -218,7 +216,7 @@ loadingState.preload = function(){
 	this.addSpriteSheet('gas','button/btn6_gas.png',250,300);
 	this.addSpriteSheet('coal','button/btn7_coal.png',250,300);
 	this.addSpriteSheet('petroleum','button/btn8_petroleum.png',250,300);
-	this.addSpriteSheet('belt','test-belt.png',1920,20);
+
 	this.addImage('background','background.png');
 
 }
