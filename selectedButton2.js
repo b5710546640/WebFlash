@@ -19,19 +19,13 @@ myState.create = function(){
   this.character = new Pointer( this, this.textures.characterSprite, 900, 500 );
   this.character.physics = this.components.add(new Kiwi.Components.ArcadePhysics(this.character, this.character.box));
   this.coal = new Button( this, this.textures.coal,298,150);
-  this.petroleum = new Kiwi.Plugins.GameObjects.TouchButton( this, this.textures.petroleum, 656,150);
+  this.petroleum = new Button( this, this.textures.petroleum, 656,150);
 	this.nuclear = new Button( this, this.textures.nuclear, 1014,150);
   this.gas = new Button( this, this.textures.gas, 1372,150);
   this.water = new Button( this, this.textures.water, 298,473);
   this.sun = new Button( this, this.textures.sun, 656,473);
   this.wind = new Button( this, this.textures.wind, 1014,473);
 	this.underworld = new Button( this, this.textures.underworld, 1372,473);
-
-	this.petroleum.animation.add('float', [0], 0.05, false);
-	this.petroleum.animation.add('lay', [1], 0.05, true);
-	this.petroleum.animation.play('lay');
-
-	this.petroleum.physics = this.components.add(new Kiwi.Components.ArcadePhysics(this.petroleum, this.petroleum.box));
 
 
   this.addChild(this.background);
@@ -71,12 +65,13 @@ myState.update = function(){
     }else if(this.control.hands[0].pointables[0].touchZone == "hovering"){
 			let xVal = this.control.hands[0].posX;
 			let yVal = (this.control.hands[0].posY);
-								//กำหนดให้ LEAP รู้ว่าเอามือลงโดยการอ้างอิงจากแกนYที่ตำแหน่ง 200
+
+			//กำหนดให้ LEAP รู้ว่าเอามือลงโดยการอ้างอิงจากแกนYที่ตำแหน่ง 150
 			if(yVal <= 150) yVal = (150 - yVal);
 			else yVal = -1*(yVal -150);
 
-			let newX = this.character.x + xVal*0.07;
-			let newY = this.character.y + yVal*0.06;
+			let newX = this.character.x + xVal*0.25;
+			let newY = this.character.y + yVal*0.20;
 
 			//ดักขอบ
 			if(newX < 20 || newX >1800) newX = (-1*(newX));
