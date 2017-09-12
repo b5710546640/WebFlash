@@ -136,7 +136,7 @@ myState.updateLoadingPageStatus = function(){
 	var chkBtn = this.buttonGroup.members;
 	for (var i = 0; i < chkBtn.length; i++) {
 		console.log(chkBtn[i].x);
-		if(chkBtn[i].x >= 1920){
+		if(chkBtn[i].physics.velocity.y > 0 || chkBtn[i].x != chkBtn[i].originalX ){
 				return true;
 		}
 	}
@@ -150,6 +150,7 @@ myState.updateTheVelocity = function(){
 	for (var i = 0; i < chkBtn.length; i++) {
 		if(this.character.physics.overlaps(chkBtn[i]) && !this.updateLoadingPageStatus()){
 				chkBtn[i].physics.velocity.y = 70;
+				return;
 		}
 	}
 
@@ -159,6 +160,7 @@ var Button = function (state,image, x, y, page){
     Kiwi.Plugins.GameObjects.TouchButton.call(this, state, image, x, y);
 
 		this.page = page;
+		this.originalX = x;
 
     this.animation.add('float', [0], 0.05, false);
     this.animation.add('lay', [1], 0.05, true);
