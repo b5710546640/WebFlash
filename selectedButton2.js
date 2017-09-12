@@ -7,7 +7,6 @@ var myGame = new Kiwi.Game("layer2","kiwiLayer",null,gameOptions);
 var myState = new Kiwi.State("myState");
 var loadingState = new Kiwi.State('loadingState');
 var preloader = new Kiwi.State('preloader');
-let isloadingSomePage = false;
 
 myState.preload = function(){
   Kiwi.State.prototype.preload.call(this);
@@ -20,14 +19,14 @@ myState.create = function(){
   this.character = new Pointer( this, this.textures.characterSprite, 900, 500 );
   this.character.physics = this.components.add(new Kiwi.Components.ArcadePhysics(this.character, this.character.box));
 	this.buttonGroup = new Kiwi.Group(this);
-	this.coal = new Button( this, this.textures.coal,298,150);
-  this.petroleum = new Button( this, this.textures.petroleum, 656,150);
-	this.nuclear = new Button( this, this.textures.nuclear, 1014,150);
-  this.gas = new Button( this, this.textures.gas, 1372,150);
-  this.water = new Button( this, this.textures.water, 298,473);
-  this.sun = new Button( this, this.textures.sun, 656,473);
-  this.wind = new Button( this, this.textures.wind, 1014,473);
-	this.underworld = new Button( this, this.textures.underworld, 1372,473);
+	this.coal = new Button( this, this.textures.coal,298,150,'factory/03-1_Factory.html');
+  this.petroleum = new Button( this, this.textures.petroleum, 656,150,'factory/03-2_Factory.html');
+	this.nuclear = new Button( this, this.textures.nuclear, 1014,150,'factory/03-3_Factory.html');
+  this.gas = new Button( this, this.textures.gas, 1372,150,'factory/03-4_Factory.html');
+  this.water = new Button( this, this.textures.water, 298,473,'factory/04-1_ระบบส่งกำลังไฟฟ้า.html');
+  this.sun = new Button( this, this.textures.sun, 656,473,'factory/03-1_Factory.html');
+  this.wind = new Button( this, this.textures.wind, 1014,473,'factory/03-1_Factory.html');
+	this.underworld = new Button( this, this.textures.underworld, 1372,473,'factory/03-1_Factory.html');
 
 
   this.addChild(this.background);
@@ -50,7 +49,6 @@ myState.create = function(){
 myState.update = function(){
   Kiwi.State.prototype.update.call(this);
 
-	console.log(isloadingSomePage);
 
 	if( this.petroleum.isDown ){
 		this.petroleum.physics.velocity.y = 70;
@@ -89,10 +87,19 @@ myState.update = function(){
 			this.updateButtonAnimation();
       console.log('hovering');
     } else if(this.control.hands[0].posZ < -100){
+
 			this.updateTheVelocity();
       this.character.animation.play('press');
 
     }
+
+		var chkBtn = this.buttonGroup.members;
+		for (var i = 0; i < chkBtn.length; i++) {
+			console.log(chkBtn[i].x);
+			if(chkBtn[i].x >= 1920){
+					window.location.href = chkBtn[i].page;
+			}
+		}
 
 
 }
@@ -106,23 +113,37 @@ myState.updateButtonAnimation = function(){
 		}
 	}
 
+
+
+}
+
+myState.updateLoadingPageStatus = function(){
+	var chkBtn = this.buttonGroup.members;
+	for (var i = 0; i < chkBtn.length; i++) {
+		console.log(chkBtn[i].x);
+		if(chkBtn[i].x >= 1920){
+				return true;
+		}
+	}
+	console.log('Update loading page');
+	return false;
 }
 
 myState.updateTheVelocity = function(){
 
 	var chkBtn = this.buttonGroup.members;
 	for (var i = 0; i < chkBtn.length; i++) {
-		if(this.character.physics.overlaps(chkBtn[i]) && !isloadingSomePage){
-				console.log("this fall when "+isloadingSomePage );
+		if(this.character.physics.overlaps(chkBtn[i]) && !this.updateLoadingPageStatus()){
 				chkBtn[i].physics.velocity.y = 70;
 		}
 	}
 
 }
 
-var Button = function (state,image, x, y){
+var Button = function (state,image, x, y, page){
     Kiwi.Plugins.GameObjects.TouchButton.call(this, state, image, x, y);
 
+		this.page = page;
 
     this.animation.add('float', [0], 0.05, false);
     this.animation.add('lay', [1], 0.05, true);
@@ -142,11 +163,15 @@ var Button = function (state,image, x, y){
 				this.fallen();
     };
 
+		this.factoryPage = function(){
+			return this.page;
+		};
+
 		this.isLoad = function(){
-			if(this.y === 600 && this.x >= 1920)
-			return false;
+			if(this.physics.velocity.y > 0 || (this.y === 600 && this.x < 1920))
 			return true;
-		}
+			return false;
+		};
 
 		this.fallen = function(){
 			this.animation.play('lay');
@@ -159,7 +184,6 @@ var Button = function (state,image, x, y){
 
 		this.loadedFinish = function(){
 			if(this.physics.velocity.y > 0){
-				isloadingSomePage = true;
 				this.fallen();
 			}
 		};
@@ -200,13 +224,8 @@ preloader.create = function(){
 }
 
 loadingState.preload = function(){
-    Kiwi.State.prototype.preload.call(this);
+  Kiwi.State.prototype.preload.call(this);
 
-
-    ////////////////
-    //ASSETS TO LOAD
-///////////////////////////////////////
-	//Environment Assets
 	this.addSpriteSheet('characterSprite','pointer.png',100,125);
 	this.addSpriteSheet('underworld','button/btn1_underworld.png',250,300);
 	this.addSpriteSheet('nuclear','button/btn2_nuclear.png',250,300);
