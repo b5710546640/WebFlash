@@ -1,43 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>LeapMotion Testing of Swipe</title>
-
-<script src="http://js.leapmotion.com/0.2.0/leap.js"></script>
-
-</head>
-<body>
-
-<!--
-This is a simple example of using Javascript with the LeapMotion.
-All that this does is to open the LeapMotion and look for a few gestures of different types.
-When these are detected counters will appear and be incremented in the html
-on the page.
-A swipe gesture is defined as "something" moving from one side of the field
-of view to the other side.  Note that individual fingers are counted so
-a single finger being observed will be seen as one swipe.
-A tap gesture is equivalent to poking at the screen.
-
-The debug var can be set to 0 or non-zero and the larger the number
-the increased level of debug output to the JS console if you turn on developer mode
-in your browser.  I am primarily using Chrome but Safari also works for me.
-
-This page was very helpful while working on this:
-http://stackoverflow.com/questions/18018642/detecting-swipe-gesture-direction-with-leap-motion
-
-The webpage should look something like this if you have a LeapMotion attached
-
-Hey, you've got a LeapMotion attached, cool!
-numSwipes 16, left 9, right 7, taps 2
-
-
-I wanted this to be a complete and working example so if you have any suggestions on how to
-improve it please let me know.
-
- -->
-
-<script>
 var debug=0;            // increasing level of debug output
 var numSwipes=0;        // total count of swipes seen
 var numSwipesLeft=0;
@@ -48,7 +8,7 @@ var controller = new Leap.Controller({enableGestures: true});
 
 controller.on('connect', function() {
 	console.log("leapmotion:sucessful connection");
-	foundLeap(); // let the user know we found it
+	// foundLeap(); // let the user know we found it
 });
 
 controller.on('deviceConnected', function() {
@@ -113,15 +73,17 @@ function handleSwipe(swipe) {
 
 		// the swipe object will tell us which direction the swipe was in
 		if (swipe.direction[0] > 0) {
-      window.location.href = '';
+			window.location.href = '../../index.html';
 			numSwipesRight++;
 		} else {
+			window.location.href = '04-1_ระบบส่งกำลังไฟฟ้า.html';
+			console.log('back');
 			numSwipesLeft++;
 		}
 	}
 
 	// update the webpage with out current count data
-	refreshCounts();
+	// refreshCounts();
 }
 
 // taps (poke at the screen) seem a little more difficult to detect correctly,
@@ -132,31 +94,6 @@ function handleTap(tap) {
 		numTaps++;
 
 	// update the webpage with out current count data
-	refreshCounts();
+	// refreshCounts();
 
 }
-
-</script>
-
-</body>
-
-<!-- this div is just to announce to the user that we detected a leap device -->
-<div id="foundLeap">No LeapMotion detected</div>
-<!-- this div will be replaced with counter data once we start receiving it -->
-<div id="counters">If you have an attached LeapMotion then counters should be appearing here</div>
-
-<script>
-function foundLeap() {
-	  var element=document.getElementById("foundLeap");
-	    element.innerHTML="Hey, you've got a LeapMotion attached, cool! Try swiping left and right";
-}
-
-
-
-function refreshCounts() {
-    var element=document.getElementById("counters");
-    element.innerHTML="numSwipes " + numSwipes + ", left " + numSwipesLeft + ", right " + numSwipesRight + ", taps " + numTaps;
-}
-</script>
-
-</html>

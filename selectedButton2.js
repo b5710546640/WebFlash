@@ -7,6 +7,8 @@ var myGame = new Kiwi.Game("layer2","kiwiLayer",null,gameOptions);
 var myState = new Kiwi.State("myState");
 var loadingState = new Kiwi.State('loadingState');
 var preloader = new Kiwi.State('preloader');
+// var clock;
+// var timer;
 
 myState.preload = function(){
   Kiwi.State.prototype.preload.call(this);
@@ -19,14 +21,14 @@ myState.create = function(){
   this.character = new Pointer( this, this.textures.characterSprite, 900, 500 );
   this.character.physics = this.components.add(new Kiwi.Components.ArcadePhysics(this.character, this.character.box));
 	this.buttonGroup = new Kiwi.Group(this);
-	this.coal = new Button( this, this.textures.coal,298,150,'factory/03-1_Factory.html');
-  this.petroleum = new Button( this, this.textures.petroleum, 656,150,'factory/03-2_Factory.html');
-	this.nuclear = new Button( this, this.textures.nuclear, 1014,150,'factory/03-3_Factory.html');
-  this.gas = new Button( this, this.textures.gas, 1372,150,'factory/03-4_Factory.html');
-  this.water = new Button( this, this.textures.water, 298,473,'factory/04-1_ระบบส่งกำลังไฟฟ้า.html');
-  this.sun = new Button( this, this.textures.sun, 656,473,'factory/03-1_Factory.html');
-  this.wind = new Button( this, this.textures.wind, 1014,473,'factory/03-1_Factory.html');
-	this.underworld = new Button( this, this.textures.underworld, 1372,473,'factory/03-1_Factory.html');
+	this.coal = new Button( this, this.textures.coal,298,150,'factory/01/03-1_Factory.html');
+  this.petroleum = new Button( this, this.textures.petroleum, 656,150,'factory/02/03-2_Factory.html');
+	this.nuclear = new Button( this, this.textures.nuclear, 1014,150,'factory/03/03-3_Factory.html');
+  this.gas = new Button( this, this.textures.gas, 1372,150,'factory/04/03-4_Factory.html');
+  this.water = new Button( this, this.textures.water, 298,473,'factory/05/03-5_Factory.html');
+  this.sun = new Button( this, this.textures.sun, 656,473,'factory/06/03-6_Factory.html');
+  this.wind = new Button( this, this.textures.wind, 1014,473,'factory/07/03-7_Factory.html');
+	this.underworld = new Button( this, this.textures.underworld, 1372,473,'factory/08/03-8_Factory.html');
 
 
   this.addChild(this.background);
@@ -43,7 +45,24 @@ myState.create = function(){
 	this.addChild( this.buttonGroup );
   this.addChild( this.character );
 
+
+
+
   this.control = Kiwi.Plugins.LEAPController.createController();
+}
+
+myState.waiting = function(duration){
+	clock = this.game.time.clock;
+	timer = clock.createTimer( "timeoutTimer", duration );
+	timer.createTimerEvent( Kiwi.Time.TimerEvent.TIMER_STOP,
+			function() {
+					console.log( "Time's Up" );
+					window.location.href = 'index.html';
+
+					clock.removeTimer( timer );
+			} );
+			timer.start();
+
 }
 
 myState.update = function(){
@@ -54,18 +73,10 @@ myState.update = function(){
 		this.petroleum.physics.velocity.y = 70;
 	}
 
-// console.log(this.game.input.mouse.x);
-// console.log(this.game.input.mouse.y);
-	// if(this.game.input.mouse.overlaps(this.nuclear)){
-	// 		console.log("Change color");
-	// 		this.nuclear.animation.play('float');
-	// }
+	console.log('update' + this.control.hands[0].pointables[0].touchZone);
 
-    if(this.control.hands[0].pointables[0].touchZone == "none"){
-        console.log('none');
-        this.character.animation.play('point');
+    if(this.control.hands[0].pointables[0].touchZone == "hovering"){
 
-    }else if(this.control.hands[0].pointables[0].touchZone == "hovering"){
 			let xVal = this.control.hands[0].posX;
 			let yVal = (this.control.hands[0].posY);
 
@@ -86,12 +97,16 @@ myState.update = function(){
 
 			this.updateButtonAnimation();
       console.log('hovering');
+
     } else if(this.control.hands[0].posZ < -100){
 
 			this.updateTheVelocity();
       this.character.animation.play('press');
 
-    }
+    }else{
+	        this.character.animation.play('point');
+					// this.waiting(10);
+		}
 
 		var chkBtn = this.buttonGroup.members;
 		for (var i = 0; i < chkBtn.length; i++) {
@@ -254,6 +269,8 @@ loadingState.create = function(){
 loadingState.switchToMain = function(){
     this.game.states.switchState('myState');
 }
+
+
 
 myGame.states.addState(loadingState);
 myGame.states.addState(preloader);
