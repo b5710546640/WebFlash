@@ -57,7 +57,7 @@ myState.waiting = function(duration){
 	timer.createTimerEvent( Kiwi.Time.TimerEvent.TIMER_STOP,
 			function() {
 					console.log( "Time's Up" );
-					if(myState.control.hands[0].pointables[0].touchZone  == "hovering"){
+					if(myState.control.hands[0].pointables[0].touchZone  == "hovering" || myState.control.hands[0].posZ < -100 ){
 						console.log('hovering');
 						timer.start();
 					}else {
@@ -73,6 +73,7 @@ myState.waiting = function(duration){
 myState.update = function(){
   Kiwi.State.prototype.update.call(this);
 
+	console.log(timer);
 
 	if( this.petroleum.isDown ){
 		this.petroleum.physics.velocity.y = 73;
@@ -81,7 +82,6 @@ myState.update = function(){
 	console.log('update' + this.control.hands[0].pointables[0].touchZone);
 
     if(this.control.hands[0].pointables[0].touchZone == "hovering"){
-
 			let xVal = this.control.hands[0].posX;
 			let yVal = (this.control.hands[0].posY);
 
@@ -102,10 +102,9 @@ myState.update = function(){
 
 			this.updateButtonAnimation();
       console.log('hovering');
-			// this.resetTimer();
+
 
     } else if(this.control.hands[0].posZ < -100){
-
 			this.updateTheVelocity();
       this.character.animation.play('press');
 			// this.resetTimer();
