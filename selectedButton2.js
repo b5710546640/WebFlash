@@ -7,8 +7,8 @@ var myGame = new Kiwi.Game("layer2","kiwiLayer",null,gameOptions);
 var myState = new Kiwi.State("myState");
 var loadingState = new Kiwi.State('loadingState');
 var preloader = new Kiwi.State('preloader');
-// var clock;
-// var timer;
+var clock;
+var timer;
 
 myState.preload = function(){
   Kiwi.State.prototype.preload.call(this);
@@ -17,6 +17,7 @@ myState.preload = function(){
 
 myState.create = function(){
   Kiwi.State.prototype.create.call( this );
+
   this.background = new Kiwi.GameObjects.StaticImage(this, this.textures.background, 0, 0);
   this.character = new Pointer( this, this.textures.characterSprite, 900, 500 );
   this.character.physics = this.components.add(new Kiwi.Components.ArcadePhysics(this.character, this.character.box));
@@ -45,8 +46,7 @@ myState.create = function(){
 	this.addChild( this.buttonGroup );
   this.addChild( this.character );
 
-
-
+	this.waiting(10);
 
   this.control = Kiwi.Plugins.LEAPController.createController();
 }
@@ -57,9 +57,14 @@ myState.waiting = function(duration){
 	timer.createTimerEvent( Kiwi.Time.TimerEvent.TIMER_STOP,
 			function() {
 					console.log( "Time's Up" );
-					window.location.href = 'index.html';
+					if(myState.control.hands[0].pointables[0].touchZone  == "hovering"){
+						console.log('hovering');
+						timer.start();
+					}else {
+						window.location.href = 'index.html';
+						clock.removeTimer( timer );
+					}
 
-					clock.removeTimer( timer );
 			} );
 			timer.start();
 
@@ -70,7 +75,7 @@ myState.update = function(){
 
 
 	if( this.petroleum.isDown ){
-		this.petroleum.physics.velocity.y = 70;
+		this.petroleum.physics.velocity.y = 73;
 	}
 
 	console.log('update' + this.control.hands[0].pointables[0].touchZone);
@@ -97,15 +102,16 @@ myState.update = function(){
 
 			this.updateButtonAnimation();
       console.log('hovering');
+			// this.resetTimer();
 
     } else if(this.control.hands[0].posZ < -100){
 
 			this.updateTheVelocity();
       this.character.animation.play('press');
-
+			// this.resetTimer();
     }else{
 	        this.character.animation.play('point');
-					// this.waiting(10);
+
 		}
 
 		var chkBtn = this.buttonGroup.members;
@@ -272,6 +278,9 @@ loadingState.switchToMain = function(){
     this.game.states.switchState('myState');
 }
 
+myState.resetTimer = function() {
+    console.log( "Reset Timer"+clock );
+};
 
 
 myGame.states.addState(loadingState);
