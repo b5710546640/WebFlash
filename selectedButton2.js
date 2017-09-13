@@ -93,8 +93,8 @@ myState.update = function(){
 			let newY = this.character.y + yVal*0.20;
 
 			//ดักขอบ
-			if(newX < 20 || newX >1800) newX = (-1*(newX));
-			if(newY < 10 || newY > 700) newY = (-1*(newY));
+			if(newX < 20 || newX >1800) newX = this.character.x;
+			if(newY < 10 || newY > 700) newY = this.character.y;
 
 			//Updateตำแหน่งมือ
 			this.character.x = newX;
