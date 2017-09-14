@@ -46,29 +46,27 @@ myState.create = function(){
 	this.addChild( this.buttonGroup );
   this.addChild( this.character );
 
-	this.waiting(10);
 
-  this.control = Kiwi.Plugins.LEAPController.createController();
-}
-
-myState.waiting = function(duration){
 	clock = this.game.time.clock;
-	timer = clock.createTimer( "timeoutTimer", duration );
+	timer = clock.createTimer( "timeoutTimer", 10 );
 	timer.createTimerEvent( Kiwi.Time.TimerEvent.TIMER_STOP,
 			function() {
-					console.log( "Time's Up" );
 					if(myState.control.hands[0].pointables[0].touchZone  == "hovering" || myState.control.hands[0].posZ < -100 ){
-						console.log('hovering');
-						timer.start();
 					}else {
+						console.log( "Time's Up" );
 						window.location.href = 'index.html';
 						clock.removeTimer( timer );
 					}
 
 			} );
-			timer.start();
 
+	timer.start();
+
+
+  this.control = Kiwi.Plugins.LEAPController.createController();
 }
+
+
 
 myState.update = function(){
   Kiwi.State.prototype.update.call(this);
@@ -82,6 +80,7 @@ myState.update = function(){
 	console.log('update' + this.control.hands[0].pointables[0].touchZone);
 
     if(this.control.hands[0].pointables[0].touchZone == "hovering"){
+			timer.start();
 			let xVal = this.control.hands[0].posX;
 			let yVal = (this.control.hands[0].posY);
 
@@ -105,6 +104,7 @@ myState.update = function(){
 
 
     } else if(this.control.hands[0].posZ < -100){
+			timer.start();
 			this.updateTheVelocity();
       this.character.animation.play('press');
 			// this.resetTimer();
