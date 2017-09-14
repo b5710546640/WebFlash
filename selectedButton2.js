@@ -7,13 +7,14 @@ var myGame = new Kiwi.Game("layer2","kiwiLayer",null,gameOptions);
 var myState = new Kiwi.State("myState");
 var loadingState = new Kiwi.State('loadingState');
 var preloader = new Kiwi.State('preloader');
-var clock;
 var timer;
+
 
 myState.preload = function(){
   Kiwi.State.prototype.preload.call(this);
 
 }
+
 
 myState.create = function(){
   Kiwi.State.prototype.create.call( this );
@@ -46,12 +47,12 @@ myState.create = function(){
 	this.addChild( this.buttonGroup );
   this.addChild( this.character );
 
-
-	clock = this.game.time.clock;
+	var clock = this.game.time.clock;
 	timer = clock.createTimer( "timeoutTimer", 10 );
+	// console.log('create '+timer.getCurrentCount);
 	timer.createTimerEvent( Kiwi.Time.TimerEvent.TIMER_STOP,
 			function() {
-					if(myState.control.hands[0].pointables[0].touchZone  == "hovering" || myState.control.hands[0].posZ < -100 ){
+					if(myState.control.hands[0].pointables[0].touchZone  == "hovering" || myState.control.hands[0].pointables[0].touchZone  == "touching" ){
 					}else {
 						console.log( "Time's Up" );
 						window.location.href = 'index.html';
@@ -63,6 +64,7 @@ myState.create = function(){
 	timer.start();
 
 
+
   this.control = Kiwi.Plugins.LEAPController.createController();
 }
 
@@ -70,8 +72,8 @@ myState.create = function(){
 
 myState.update = function(){
   Kiwi.State.prototype.update.call(this);
-
-	console.log(timer);
+	//
+	// console.log('Time :'+timer.getCurrentCount);
 
 	if( this.petroleum.isDown ){
 		this.petroleum.physics.velocity.y = 73;
@@ -79,7 +81,7 @@ myState.update = function(){
 
 	console.log('update' + this.control.hands[0].pointables[0].touchZone);
 
-    if(this.control.hands[0].pointables[0].touchZone == "hovering"){
+		if(this.control.hands[0].pointables[0].touchZone == "hovering"){
 			timer.start();
 			let xVal = this.control.hands[0].posX;
 			let yVal = (this.control.hands[0].posY);
@@ -103,10 +105,12 @@ myState.update = function(){
       console.log('hovering');
 
 
-    } else if(this.control.hands[0].posZ < -100){
+    } else if(this.control.hands[0].pointables[0].touchZone == "touching"){
 			timer.start();
-			this.updateTheVelocity();
-      this.character.animation.play('press');
+			if(this.control.hands[0].posz < -100){
+				this.updateTheVelocity();
+				this.character.animation.play('press');
+			}
 			// this.resetTimer();
     }else{
 	        this.character.animation.play('point');
