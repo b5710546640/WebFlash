@@ -181,7 +181,6 @@ myState.updateLoadingPageStatus = function(){
 	for (var i = 0; i < chkBtn.length; i++) {
 		// console.log(chkBtn[i].x);
 		if(chkBtn[i].physics.velocity.y > 0 || chkBtn[i].x != chkBtn[i].originalX ){
-				timer.start();
 				return true;
 		}
 	}
@@ -239,6 +238,7 @@ var Button = function (state,image, x, y, page){
 		this.fallen = function(){
 			this.animation.play('lay');
 			if(this.y >= 600){
+				timer.start();
 				console.log(this.y);
 				this.physics.velocity.y = 0;
 				this.physics.acceleration.y = 0;
@@ -248,6 +248,7 @@ var Button = function (state,image, x, y, page){
 
 		this.loadedFinish = function(){
 			if(this.physics.velocity.y > 0){
+				timer.start();
 				this.fallen();
 			}
 		};
