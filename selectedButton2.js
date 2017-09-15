@@ -122,8 +122,8 @@ myState.update = function(){
 			if(yVal <= 150) yVal = (150 - yVal);
 			else yVal = -1*(yVal -150);
 
-			let newX = this.character.x + xVal*0.75;
-			let newY = this.character.y + yVal*0.70;
+			let newX = this.character.x + xVal*0.67;
+			let newY = this.character.y + yVal*0.62;
 
 			//ดักขอบ
 			if(newX < 20 || newX >1800) newX = this.character.x;
@@ -141,11 +141,11 @@ myState.update = function(){
 			// timer.start();
 			// console.log('z control :'+(this.control.hands[0].posZ <= -70));
 			// console.log('z control2 :'+this.control.hands[0].posZ);
-			if(this.control.hands[0].posZ <= -100){
+			// if(this.control.hands[0].posZ <= -100){
 				console.log('z control in');
 				this.updateTheVelocity();
 				this.character.animation.play('press');
-			}
+			// }
 			// this.resetTimer();
     }else{
 	        this.character.animation.play('point');
