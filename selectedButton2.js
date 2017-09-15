@@ -114,7 +114,7 @@ myState.update = function(){
 
 
 		if(this.control.hands[0].pointables[0].touchZone == "hovering"){
-			timer.start();
+			// timer.start();
 			let xVal = this.control.hands[0].posX;
 			let yVal = (this.control.hands[0].posY);
 
@@ -122,8 +122,8 @@ myState.update = function(){
 			if(yVal <= 150) yVal = (150 - yVal);
 			else yVal = -1*(yVal -150);
 
-			let newX = this.character.x + xVal*0.25;
-			let newY = this.character.y + yVal*0.20;
+			let newX = this.character.x + xVal*0.75;
+			let newY = this.character.y + yVal*0.70;
 
 			//ดักขอบ
 			if(newX < 20 || newX >1800) newX = this.character.x;
@@ -138,7 +138,7 @@ myState.update = function(){
 
 
     } else if(this.control.hands[0].pointables[0].touchZone == "touching"){
-			timer.start();
+			// timer.start();
 			// console.log('z control :'+(this.control.hands[0].posZ <= -70));
 			// console.log('z control2 :'+this.control.hands[0].posZ);
 			if(this.control.hands[0].posZ <= -100){
@@ -218,6 +218,7 @@ var Button = function (state,image, x, y, page){
     Button.prototype.update = function(){
         Kiwi.GameObjects.Sprite.prototype.update.call(this);
         this.physics.update();
+				timer.start();
 				this.loadedFinish();
 				// if( this.isDown ){
 				// 	this.physics.velocity.y = 70;
@@ -238,7 +239,6 @@ var Button = function (state,image, x, y, page){
 		this.fallen = function(){
 			this.animation.play('lay');
 			if(this.y >= 600){
-				timer.start();
 				console.log(this.y);
 				this.physics.velocity.y = 0;
 				this.physics.acceleration.y = 0;
@@ -248,7 +248,7 @@ var Button = function (state,image, x, y, page){
 
 		this.loadedFinish = function(){
 			if(this.physics.velocity.y > 0){
-				timer.start();
+
 				this.fallen();
 			}
 		};
@@ -269,6 +269,7 @@ var Pointer = function (state,image, x, y){
     Pointer.prototype.update = function(){
         Kiwi.GameObjects.Sprite.prototype.update.call(this);
         this.physics.update();
+				timer.start();
         this.animation.play('point');
 
     }
