@@ -139,14 +139,17 @@ myState.update = function(){
 
     } else if(this.control.hands[0].pointables[0].touchZone == "touching"){
 			timer.start();
-			if(this.control.hands[0].posz < -100){
+			// console.log('z control :'+(this.control.hands[0].posZ <= -70));
+			// console.log('z control2 :'+this.control.hands[0].posZ);
+			if(this.control.hands[0].posZ <= -100){
+				console.log('z control in');
 				this.updateTheVelocity();
 				this.character.animation.play('press');
 			}
 			// this.resetTimer();
     }else{
 	        this.character.animation.play('point');
-
+					this.updateLoadingPageStatus();
 		}
 
 		var chkBtn = this.buttonGroup.members;
@@ -176,8 +179,9 @@ myState.updateButtonAnimation = function(){
 myState.updateLoadingPageStatus = function(){
 	var chkBtn = this.buttonGroup.members;
 	for (var i = 0; i < chkBtn.length; i++) {
-		console.log(chkBtn[i].x);
+		// console.log(chkBtn[i].x);
 		if(chkBtn[i].physics.velocity.y > 0 || chkBtn[i].x != chkBtn[i].originalX ){
+				timer.start();
 				return true;
 		}
 	}
