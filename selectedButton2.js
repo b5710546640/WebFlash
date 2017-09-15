@@ -194,7 +194,8 @@ myState.updateTheVelocity = function(){
 	var chkBtn = this.buttonGroup.members;
 	for (var i = 0; i < chkBtn.length; i++) {
 		if(this.character.physics.overlaps(chkBtn[i]) && !this.updateLoadingPageStatus()){
-				chkBtn[i].physics.velocity.y = 70;
+				chkBtn[i].physics.velocity.y = 90;
+				chkBtn[i].physics.acceleration.y = 10;
 				return;
 		}
 	}
@@ -240,7 +241,8 @@ var Button = function (state,image, x, y, page){
 			if(this.y >= 600){
 				console.log(this.y);
 				this.physics.velocity.y = 0;
-				this.x += 4.07;
+				this.physics.acceleration.y = 0;
+				this.x += 7.30;
 			}
 		};
 
