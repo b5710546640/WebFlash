@@ -80,7 +80,7 @@ myState.create = function(){
 	//ต่อไปนี้เป็นการบอกให้ timer รู้ว่าต้องทำอะไรเมื่อไหร่ ในที่นี้มันจะทำก็ต้องเมื่อ timer หยุดลง
 	timer.createTimerEvent( Kiwi.Time.TimerEvent.TIMER_STOP,
 			function() {
-					if(myState.control.hands[0].pointables[0].touchZone  == "hovering" || myState.control.hands[0].pointables[0].touchZone  == "touching" ){
+					if(myState.control.hands[0].pointables[0].touchZone  == "hovering" || myState.control.hands[0].pointables[0].touchZone  == "touching" || myState.updateLoadingPageStatus()){
 						//อันนี้หมายถึง ถ้าขยับมืออยู่ก็ไม่ต้องทำอะไร
 					}else {
 						//อันนี้แน่นอน ถ้าไม่มีใครขยับอะไรเลยก็ให้มันกลับไปหน้า index
