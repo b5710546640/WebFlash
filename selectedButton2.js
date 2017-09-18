@@ -122,8 +122,8 @@ myState.update = function(){
 			if(yVal <= 150) yVal = (150 - yVal);
 			else yVal = -1*(yVal -150);
 
-			let newX = this.character.x + xVal*0.35;
-			let newY = this.character.y + yVal*0.30;
+			let newX = this.character.x + xVal*0.50000;
+			let newY = this.character.y + yVal*0.23125;
 
 			//ดักขอบ
 			if(newX < 20 || newX >1800) newX = this.character.x;
