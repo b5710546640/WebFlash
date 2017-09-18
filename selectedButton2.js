@@ -141,7 +141,7 @@ myState.update = function(){
 			// timer.start();
 			// console.log('z control :'+(this.control.hands[0].posZ <= -70));
 			// console.log('z control2 :'+this.control.hands[0].posZ);
-			if(this.control.hands[0].posZ <= -100){
+			if(this.control.hands[0].posZ <= -77){
 				console.log('z control in');
 				this.updateTheVelocity();
 				this.character.animation.play('press');
