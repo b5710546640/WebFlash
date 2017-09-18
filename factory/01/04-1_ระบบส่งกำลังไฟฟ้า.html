@@ -14,6 +14,7 @@
 <title>04-1_ระบบส่งกำลังไฟฟ้า</title>
 <!-- write your code here -->
 <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+<script src="http://js.leapmotion.com/0.2.0/leap.js"></script>
 <script src="04-1_ระบบส่งกำลังไฟฟ้า.js"></script>
 <script>
 var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
@@ -73,7 +74,43 @@ function handleComplete() {
 </script>
 <script>
 
-	setTimeout(function(){ window.location.href = '../../selectsource.html'; }, 15000);
+var controllerOptions = {enableGestures: true};
+var swipeDirection;
+Leap.loop(controllerOptions, function(frame) {
+
+  // Display Gesture object data
+  if (frame.gestures.length > 0) {
+    for (var i = 0; i < frame.gestures.length; i++) {
+      var gesture = frame.gestures[i];
+      if(gesture.type == "swipe") {
+          //Classify swipe as either horizontal or vertical
+					// console.log(gesture.position[0] - gesture.startPosition[0]);
+          var isHorizontal = Math.abs(gesture.direction[0]) > Math.abs(gesture.direction[1]);
+          //Classify as right-left or up-down
+          if(isHorizontal){
+              if(gesture.direction[0] > 0){
+                  swipeDirection = "right";
+              } else {
+                  swipeDirection = "left";
+              }
+          } else { //vertical
+              if(gesture.direction[1] > 0){
+                  swipeDirection = "up";
+              } else {
+                  swipeDirection = "down";
+              }
+          }
+
+       }
+     }
+
+  }
+
+});
+
+  console.log(swipeDirection)
+
+	// setTimeout(function(){ window.location.href = '../../selectsource.html'; }, 15000);
 
 </script>
 <!-- write your code here -->
