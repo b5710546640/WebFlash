@@ -80,7 +80,7 @@ myState.create = function(){
 	//ต่อไปนี้เป็นการบอกให้ timer รู้ว่าต้องทำอะไรเมื่อไหร่ ในที่นี้มันจะทำก็ต้องเมื่อ timer หยุดลง
 	timer.createTimerEvent( Kiwi.Time.TimerEvent.TIMER_STOP,
 			function() {
-					if(myState.control.hands[0].pointables[0].touchZone  == "hovering" || myState.control.hands[0].pointables[0].touchZone  == "touching" || myState.updateLoadingPageStatus()){
+					if(myState.control.hands[0].pointables[0].touchZone  == "hovering" || myState.control.hands[0].posY < 60 || myState.updateLoadingPageStatus()){
 						//อันนี้หมายถึง ถ้าขยับมืออยู่ก็ไม่ต้องทำอะไร
 					}else {
 						//อันนี้แน่นอน ถ้าไม่มีใครขยับอะไรเลยก็ให้มันกลับไปหน้า index
@@ -110,17 +110,19 @@ myState.update = function(){
 	// 	this.petroleum.physics.velocity.y = 73;
 	// }
 
-	console.log('update' + this.control.hands[0].pointables[0].touchZone);
+	console.log('update' + this.control.hands[0].pointables[0].touchDistance);
 
+	this.character.scaleX = (this.control.hands[0].posY - 20)/100;
+	this.character.scaleY = (this.control.hands[0].posY - 20)/100;
 
 		if(this.control.hands[0].pointables[0].touchZone == "hovering"){
 			// timer.start();
 			let xVal = this.control.hands[0].posX;
-			let yVal = (this.control.hands[0].posY);
+			let yVal = (this.control.hands[0].posZ);
 
 			//กำหนดให้ LEAP รู้ว่าเอามือลงโดยการอ้างอิงจากแกนYที่ตำแหน่ง 150
-			if(yVal <= 150) yVal = (150 - yVal);
-			else yVal = -1*(yVal -150);
+			if(yVal <= -100) yVal = 0;
+			else if(yVal > 100) yVal = 0;
 
 			let newX = this.character.x + xVal*0.50000;
 			let newY = this.character.y + yVal*0.23125;
@@ -137,15 +139,16 @@ myState.update = function(){
       console.log('hovering');
 
 
-    } else if(this.control.hands[0].pointables[0].touchZone == "touching"){
+    } else if(this.control.hands[0].posY < 60){
+
 			// timer.start();
 			// console.log('z control :'+(this.control.hands[0].posZ <= -70));
 			// console.log('z control2 :'+this.control.hands[0].posZ);
-			if(this.control.hands[0].posZ <= -77){
-				console.log('z control in');
+			// if(this.control.hands[0].posZ <= -77){
+				console.log('press at'+this.control.hands[0].posY);
 				this.updateTheVelocity();
 				this.character.animation.play('press');
-			}
+			// }
 			// this.resetTimer();
     }else{
 	        this.character.animation.play('point');
