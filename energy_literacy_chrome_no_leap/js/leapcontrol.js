@@ -4,7 +4,7 @@ Leap.loop(function(frame) {
 	var fingersInfo = [],
 		handsInfo = [],
 		iBox = frame.interactionBox;
-	
+
 	for (var f=0; f<frame.fingers.length; f++) {
 		var finger = frame.fingers[f],
 			normalizedPosition = iBox.normalizePoint(finger.stabilizedTipPosition, true);
@@ -16,7 +16,7 @@ Leap.loop(function(frame) {
 			handVelocity = hand.palmVelocity;
 		handsInfo.push([normalizedPosition[0], normalizedPosition[1], normalizedPosition[2], handVelocity[0], handVelocity[1], handVelocity[2]]);
 	}
-	
+
 	//check callback before call callback
 	LeapCallback({
 		"fingers": fingersInfo,

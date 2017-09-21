@@ -11,11 +11,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="authoring-tool" content="Adobe_Animate_CC">
-<title>01_Let's Play</title>
+<title>หน้าหลัก</title>
 <!-- write your code here -->
 <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
 <script src="http://js.leapmotion.com/leap-0.6.0.js"></script>
-<script type="text/javascript" src="js/index.js"></script>
+<script src="js/index.js?1505981730732"></script>
 <script>
 var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
 function init() {
@@ -26,7 +26,7 @@ function init() {
 }
 function handleComplete() {
 	//This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
-	exportRoot = new lib.LetPlay();
+	exportRoot = new lib.LetsPlay();
 	stage = new createjs.Stage(canvas);
 	stage.addChild(exportRoot);
 	//Registers the "tick" event listener.
@@ -70,42 +70,34 @@ function handleComplete() {
 	makeResponsive(false,'both',false,1);
 	fnStartAnimation();
 }
-console.log('index page');
 </script>
 <script>
 // Store frame for motion functions
 var previousFrame = null;
 var paused = false;
 var pauseOnGesture = false;
-
 // Setup Leap loop with frame callback function
 var controllerOptions = {enableGestures: true};
-
-
 Leap.loop(controllerOptions, function(frame) {
   if (paused) {
     return; // Skip this update
   }
-
   // Display Hand object data
   var handOutput = document.getElementById("handData");
   var handString = "";
   if (frame.hands.length > 0) {
     for (var i = 0; i < frame.hands.length; i++) {
       var hand = frame.hands[i];
-
       handString += "<div style='width:400px; float:left; padding:5px'>";
       handString += "ID มือ: " + hand.id + "<br />";
       handString += "ข้างที่ใช้: " + hand.type + "<br />";
       handString += "ทิศทาง: " + vectorToString(hand.direction, 2) + "<br />";
       handString += "กำมือ: " + hand.grabStrength + "<br />";
-
 			if(hand.grabStrength===1 && hand.type === 'right'){
 				console.log("Go to next page");
 				console.log(hand.type);
 				window.location.href = 'selectsource.html';
 			}
-
       // IDs of pointables associated with this hand
       if (hand.pointables.length > 0) {
         var fingerIds = [];
@@ -117,7 +109,6 @@ Leap.loop(controllerOptions, function(frame) {
           handString += "ID มือ และ นิ้ว: " + fingerIds.join(", ") + "<br />";
         }
       }
-
       handString += "</div>";
     }
   }
@@ -126,9 +117,7 @@ Leap.loop(controllerOptions, function(frame) {
   }
   // handOutput.innerHTML = handString;
   previousFrame = frame;
-
 })
-
 function vectorToString(vector, digits) {
   if (typeof digits === "undefined") {
     digits = 1;
@@ -137,16 +126,15 @@ function vectorToString(vector, digits) {
              + vector[1].toFixed(digits) + ", "
              + vector[2].toFixed(digits) + ")";
 }
-
 </script>
-
 <!-- write your code here -->
 </head>
 <body onload="init();" style="margin:0px;">
-	<div id="animation_container" style="background-color:rgba(255, 255, 255, 1.00); width:1920px; height:1080px">
-		<canvas id="canvas" width="1920" height="1080" style="position: absolute; display: block; background-color:rgba(255, 255, 255, 1.00);"></canvas>
+	<div id="animation_container" style="width:1920px; height:1080px">
+		<canvas id="canvas" width="1920" height="1080" ></canvas>
 		<div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:1920px; height:1080px; position: absolute; left: 0px; top: 0px; display: block;">
 		</div>
 	</div>
+</div>
 </body>
 </html>

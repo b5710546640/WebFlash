@@ -124,8 +124,8 @@ myState.update = function(){
 			if(yVal <= -100) yVal = 0;
 			else if(yVal > 100) yVal = 0;
 
-			let newX = this.character.x + xVal*0.50000;
-			let newY = this.character.y + yVal*0.23125;
+			let newX = this.character.x + xVal*0.7;
+			let newY = this.character.y + yVal*0.7;
 
 			//ดักขอบ
 			if(newX < 20 || newX >1800) newX = this.character.x;
@@ -295,7 +295,7 @@ preloader.create = function(){
 loadingState.preload = function(){
   Kiwi.State.prototype.preload.call(this);
 
-	this.addSpriteSheet('characterSprite','pointer.png',100,125);
+	this.addSpriteSheet('characterSprite','pointer.png',100,112);
 	this.addSpriteSheet('underworld','button/btn1_underworld.png',250,300);
 	this.addSpriteSheet('nuclear','button/btn2_nuclear.png',250,300);
 	this.addSpriteSheet('wind','button/btn3_wind.png',250,300);
