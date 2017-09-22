@@ -34,9 +34,9 @@ myState.create = function(){
 	this.character = new Pointer( this, this.textures.characterSprite, 900, 500 );
 
 	this.buttonGroup = new Kiwi.Group(this);
-	this.LED1 = new Button( this, this.textures.LED1,220,200, 'Lamp1');
-  this.LED2 = new Button( this, this.textures.LED2,830,200, 'Lamp2');
-	this.LED3 = new Button( this, this.textures.LED3, 1440,200, 'Lamp3');
+	this.LED1 = new Button( this, this.textures.LED1,220,190, 'Lamp1');
+  this.LED2 = new Button( this, this.textures.LED2,830,190, 'Lamp2');
+	this.LED3 = new Button( this, this.textures.LED3, 1440,190, 'Lamp3');
 
 	this.buttonGroup.addChild(this.LED1);
 	this.buttonGroup.addChild(this.LED2);
