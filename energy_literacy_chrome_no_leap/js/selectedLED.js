@@ -34,9 +34,9 @@ myState.create = function(){
 	this.character = new Pointer( this, this.textures.characterSprite, 900, 500 );
 
 	this.buttonGroup = new Kiwi.Group(this);
-	this.LED1 = new Button( this, this.textures.LED1,220,190, 'Lamp1');
-  this.LED2 = new Button( this, this.textures.LED2,830,190, 'Lamp2');
-	this.LED3 = new Button( this, this.textures.LED3, 1440,190, 'Lamp3');
+	this.LED1 = new Button( this, this.textures.LED1,220,190, 7);
+  this.LED2 = new Button( this, this.textures.LED2,830,190, 8);
+	this.LED3 = new Button( this, this.textures.LED3, 1440,190, 9);
 
 	this.buttonGroup.addChild(this.LED1);
 	this.buttonGroup.addChild(this.LED2);
@@ -147,9 +147,9 @@ myState.update = function(){
 					// console.log(this.callVideo());
 					var key = this.callVideo();
 					console.log('Key :'+key);
-					if(key !== "none"){
-					window.location = "06_Lamp.html?temp=" + encodeURIComponent(key);
-					sessionStorage.temp = key;
+					if(key > 0){
+					window.location = "06_Lamp.html?lamp=" + encodeURIComponent(key);
+					sessionStorage.lamp = key;
 					}
 				// }
 				// this.resetTimer();
@@ -176,7 +176,7 @@ myState.callVideo = function(){
 				return chkBtn[i].vid;
 		}
 	}
-	return "none";
+	return 0;
 
 }
 

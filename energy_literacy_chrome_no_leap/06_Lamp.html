@@ -79,19 +79,27 @@ function handleComplete() {
 <script>
 	var b = function(){
 		init();
-		var lamp = sessionStorage.temp;
+		var lamp = sessionStorage.lamp;
 		console.log(lamp+" != undefined = "+(lamp == null));
-		if(lamp != undefined){
+		if(lamp > 0){
 					$("#pt-main").show();
-					document.getElementById("video").setAttribute("src", "webm/"+lamp+".webm");
+					document.getElementById("video").setAttribute("src", "webm/Lamp"+(lamp-6)+".webm");
 					$("#animation_container").hide();
 					$("#layer2").hide();
+					if (external.LedIntensity) {
+						external.LedIntensity(lamp, 1); // หลอดไส้
+					}
 					document.getElementById("video").onended = function() {
 							sessionStorage.clear();
 					    window.location = "06_Lamp.html";
 					};
 		}else{
 			init();
+			if (external.LedIntensity) {
+				for (var i=0; i<16; i++) {
+					external.LedIntensity(i, 0);
+				}
+			}
 		}
 
 	}
