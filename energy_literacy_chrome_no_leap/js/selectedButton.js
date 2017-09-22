@@ -133,21 +133,19 @@ myState.update = function(){
 
 			//Updateตำแหน่งมือ
 			this.character.x = newX;
-			this.character.y = newY;
+
 
 			this.updateButtonAnimation();
       console.log('hovering');
 
 
-    } else if(this.control.hands[0].posY < 60){
-
-			// timer.start();
-			// console.log('z control :'+(this.control.hands[0].posZ <= -70));
-			// console.log('z control2 :'+this.control.hands[0].posZ);
-			// if(this.control.hands[0].posZ <= -77){
+    if(this.control.hands[0].posY < 60){
 				console.log('press at'+this.control.hands[0].posY);
 				this.updateTheVelocity();
 				this.character.animation.play('press');
+		}else{
+						this.character.y = newY;
+		}
 			// }
 			// this.resetTimer();
     }else{

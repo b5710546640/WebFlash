@@ -128,43 +128,28 @@ myState.update = function(){
 				if(newX < 20 || newX >1800) newX = this.character.x;
 				if(newY < 10 || newY > 700) newY = this.character.y;
 
-				//Updateตำแหน่งมือ
 				this.character.x = newX;
-				this.character.y = newY;
 
 				this.updateButtonAnimation();
 	      console.log('hovering');
-
-
-	    } else if(this.control.hands[0].posY < 60){
-
-				// timer.start();
-				// console.log('z control :'+(this.control.hands[0].posZ <= -70));
-				// console.log('z control2 :'+this.control.hands[0].posZ);
-				// if(this.control.hands[0].posZ <= -77){
-					console.log('press at'+this.control.hands[0].posY);
-					this.character.animation.play('press');
-					// console.log(this.callVideo());
-					var key = this.callVideo();
-					console.log('Key :'+key);
-					if(key > 0){
-					window.location = "06_Lamp.html?lamp=" + encodeURIComponent(key);
-					sessionStorage.lamp = key;
-					}
-				// }
-				// this.resetTimer();
+		    if(this.control.hands[0].posY < 60){
+						console.log('press at'+this.control.hands[0].posY);
+						this.character.animation.play('press');
+						// console.log(this.callVideo());
+						var key = this.callVideo();
+						console.log('Key :'+key);
+						if(key > 0){
+						window.location = "06_Lamp.html?lamp=" + encodeURIComponent(key);
+						sessionStorage.lamp = key;
+						}
+				}else{
+						this.character.y = newY;
+				}
 	    }else{
 		        this.character.animation.play('point');
 			}
 
 			var chkBtn = this.buttonGroup.members;
-			// for (var i = 0; i < chkBtn.length; i++) {
-			// 	console.log(chkBtn[i].x);
-			// 	if(chkBtn[i].x >= 1920){
-			// 			window.location.href = chkBtn[i].page;
-			// 	}
-			// }
-
 
 }
 
