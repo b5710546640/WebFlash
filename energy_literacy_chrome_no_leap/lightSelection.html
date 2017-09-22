@@ -11,16 +11,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="authoring-tool" content="Adobe_Animate_CC">
-<title>06_Lamp</title>
-<!-- write your code here -->
+<title>เลือกหลอดไฟ</title>
 <script src="js/createjs-2015.11.26.min.js"></script>
-<script src="js/leap-0.6.0.js"></script>
+<script src="lightSelection.js"></script>		<script src="js/leap-0.6.0.js"></script>
 <script type="text/javascript" src="js/kiwi.js"></script>
 <script src="src/touchButton-1.0.0.js"></script>
 <script type="text/javascript" src="js/LEAPController-0.1.4.js"></script>
 <script src="js/selectedLED.js"></script>
 <!-- <script type="text/javascript" src="js/serial.js"></script> -->
-<script src="06_Lamp.js"></script>
+<script src="lightSelection.js"></script>
 <script>
 var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
 function init() {
@@ -31,7 +30,7 @@ function init() {
 }
 function handleComplete() {
 	//This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
-	exportRoot = new lib._06_Lamp();
+	exportRoot = new lib.lightSelection();
 	stage = new createjs.Stage(canvas);
 	stage.addChild(exportRoot);
 	//Registers the "tick" event listener.
@@ -102,20 +101,17 @@ function handleComplete() {
 				}
 			}
 		}
-
 	}
-
 </script>
-
 <!-- write your code here -->
 </head>
-<body onload="b()" style="margin:0px;">
+<body onload="init();" style="margin:0px;">
+
 	<div style="position: relative;">
 		<div id="layer1" style="position: absolute; z-index: 2; bottom: 50px; width:1920px; height:500px">
-			<div id="animation_container" style="display : block; position: absolute; z-index: 1; bottom: 0px; width:1920px; height:500px;" >
-				<canvas id="canvas" width="1920" height="500"></canvas>
-				<div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:1920px; height:130px;
-							position: absolute; left: 0px; top: 0px; right: 0px; display: block;">
+			<div id="animation_container" style="display : block; position: absolute; z-index: 1; bottom: 0px; width:1920px; height:300px;">
+				<canvas id="canvas" width="1920" height="300"></canvas>
+				<div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:1920px; height:300px; position: absolute; left: 0px; top: 0px; display: block;">
 				</div>
 			</div>
 
@@ -129,6 +125,7 @@ function handleComplete() {
 	<audio autoplay loop>
 	  <source src="audio/Rainy_Day_Games.mp3" type="audio/mpeg">
 	</audio>
-</body>
 
+
+</body>
 </html>

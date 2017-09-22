@@ -31,18 +31,28 @@ myState.create = function(){
 	//เนื่องจาก KiwiJS เอาไว้สำหรับทำเกม ดังนั้นจึงต้องมีพื้นหลัง กรณีไม่ได้เขียนบรรทัดนี้ก็จะเป็นพื้นหลังสีขาวอัตโนมัติ
   this.background = new Kiwi.GameObjects.StaticImage(this, this.textures.background, 0, 0);
 
+	this.label1 = new Kiwi.GameObjects.Sprite(this, this.textures.label_led1, 105, 540);
+	this.label2 = new Kiwi.GameObjects.Sprite(this, this.textures.label_led2, 715, 540);
+	this.label3 = new Kiwi.GameObjects.Sprite(this, this.textures.label_led3, 1325, 540);
+
 	this.character = new Pointer( this, this.textures.characterSprite, 900, 500 );
 
 	this.buttonGroup = new Kiwi.Group(this);
-	this.LED1 = new Button( this, this.textures.LED1,220,190, 7);
-  this.LED2 = new Button( this, this.textures.LED2,830,190, 8);
-	this.LED3 = new Button( this, this.textures.LED3, 1440,190, 9);
+	this.LED1 = new Button( this, this.textures.LED1,210,190, 7);
+  this.LED2 = new Button( this, this.textures.LED2,820,190, 8);
+	this.LED3 = new Button( this, this.textures.LED3, 1420,190, 9);
 
 	this.buttonGroup.addChild(this.LED1);
 	this.buttonGroup.addChild(this.LED2);
 	this.buttonGroup.addChild(this.LED3);
 
 	this.addChild(this.background);
+
+	this.addChild(this.label1);
+	this.addChild(this.label2);
+	this.addChild(this.label3);
+
+
 	this.addChild(this.buttonGroup);
 	console.log('add buttonGroup');
 	//ดังนั้นเราต้อง add background เข้าไปเป็นอันแรก
@@ -201,7 +211,9 @@ loadingState.preload = function(){
 	this.addSpriteSheet('LED2','button/LED02.png',300,400);
 	this.addSpriteSheet('LED3','button/LED03.png',300,400);
 	this.addImage('background','bg_led.png');
-
+	this.addImage('label_led1','t1.png');
+	this.addImage('label_led2','t2.png');
+	this.addImage('label_led3','t3.png');
 }
 
 loadingState.update = function(){
