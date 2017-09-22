@@ -61,7 +61,7 @@ var ptTimeout = undefined;
 
 function MakePages() {
 	// generate the Pages
-	var ptMain = document.getElementById("pt-main");
+	var ptMain = document.getElementById("video_layer");
 
 	for (var i=0; i<pageConfig.length; i++) {
 		var ptPage = document.createElement("div");

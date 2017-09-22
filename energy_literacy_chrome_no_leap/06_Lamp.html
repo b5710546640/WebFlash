@@ -75,18 +75,46 @@ function handleComplete() {
 	fnStartAnimation();
 }
 </script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script>
+	var b = function(){
+		init();
+		var lamp = sessionStorage.temp;
+		console.log(lamp+" != undefined = "+(lamp == null));
+		if(lamp != undefined){
+					$("#pt-main").show();
+					document.getElementById("video").setAttribute("src", "webm/"+lamp+".webm");
+					$("#animation_container").hide();
+					$("#layer2").hide();
+		}else{
+			$("#pt-main").hide();
+			$("#animation_container").show();
+			$("#layer2").show();
+		}
+
+	}
+
+</script>
+
 <!-- write your code here -->
 </head>
-<body onload="init();" style="margin:0px;">
+<body onload="b()" style="margin:0px;">
 	<div style="position: relative;">
-	<div id="animation_container" style="position: absolute; z-index: 2; bottom: 50px; width:1920px; height:500px">
-		<canvas id="canvas" width="1920" height="500"></canvas>
-		<div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:1920px; height:130px; position: absolute; left: 0px; top: 0px; right: 0px; display: block;">
+		<div id="layer1" style="position: absolute; z-index: 2; bottom: 50px; width:1920px; height:500px">
+			<div id="animation_container" style="display : block; position: absolute; z-index: 1; bottom: 0px; width:1920px; height:500px;" >
+				<canvas id="canvas" width="1920" height="500"></canvas>
+				<div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:1920px; height:130px;
+							position: absolute; left: 0px; top: 0px; right: 0px; display: block;">
+				</div>
+			</div>
+
 		</div>
+		<div id="layer2" width="1920" height="1080" style="position: absolute; z-index: -1;"></div>
 	</div>
-	 <div id="layer2" width="1920" height="1080"
-		 style="position: absolute; z-index: 1;"></div>
+	<div id="pt-main" class="pt-perspective" style="display: block;">
+		<video id="video" autoplay>
+		</video>
 	</div>
-</div>
 </body>
+
 </html>

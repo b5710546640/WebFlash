@@ -34,9 +34,9 @@ myState.create = function(){
 	this.character = new Pointer( this, this.textures.characterSprite, 900, 500 );
 
 	this.buttonGroup = new Kiwi.Group(this);
-	this.LED1 = new Button( this, this.textures.LED1,220,200);
-  this.LED2 = new Button( this, this.textures.LED2,830,200);
-	this.LED3 = new Button( this, this.textures.LED3, 1440,200);
+	this.LED1 = new Button( this, this.textures.LED1,220,200, 'Lamp1');
+  this.LED2 = new Button( this, this.textures.LED2,830,200, 'Lamp2');
+	this.LED3 = new Button( this, this.textures.LED3, 1440,200, 'Lamp3');
 
 	this.buttonGroup.addChild(this.LED1);
 	this.buttonGroup.addChild(this.LED2);
@@ -56,10 +56,10 @@ myState.create = function(){
 }
 
 
-var Button = function (state,image, x, y){
+var Button = function (state,image, x, y, vid){
     Kiwi.Plugins.GameObjects.TouchButton.call(this, state, image, x, y);
 
-		// this.page = page;
+		this.vid = vid;
 		this.originalX = x;
 
     this.animation.add('float', [0], 0.05, false);
@@ -108,8 +108,8 @@ myState.update = function(){
   Kiwi.State.prototype.update.call(this);
 
 
-		this.character.scaleX = (this.control.hands[0].posY - 20)/100;
-		this.character.scaleY = (this.control.hands[0].posY - 20)/100;
+		// this.character.scaleX = (this.control.hands[0].posY - 20)/100;
+		// this.character.scaleY = (this.control.hands[0].posY - 20)/100;
 
 
 			if(this.control.hands[0].pointables[0].touchZone == "hovering"){
@@ -143,8 +143,14 @@ myState.update = function(){
 				// console.log('z control2 :'+this.control.hands[0].posZ);
 				// if(this.control.hands[0].posZ <= -77){
 					console.log('press at'+this.control.hands[0].posY);
-					this.updateTheVelocity();
 					this.character.animation.play('press');
+					// console.log(this.callVideo());
+					var key = this.callVideo();
+					console.log('Key :'+key);
+					if(key !== "none"){
+					window.location = "06_Lamp.html?temp=" + encodeURIComponent(key);
+					sessionStorage.temp = key;
+					}
 				// }
 				// this.resetTimer();
 	    }else{
@@ -159,6 +165,18 @@ myState.update = function(){
 			// 	}
 			// }
 
+
+}
+
+myState.callVideo = function(){
+
+	var chkBtn = this.buttonGroup.members;
+	for (var i = 0; i < chkBtn.length; i++) {
+		if(this.character.physics.overlaps(chkBtn[i])){
+				return chkBtn[i].vid;
+		}
+	}
+	return "none";
 
 }
 

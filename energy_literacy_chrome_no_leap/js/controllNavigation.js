@@ -68,4 +68,4 @@ function handleTap(tap) {
 
 }
 
-	setTimeout(function(){ window.location.href = '../../selectsource.html'; }, 15000);
+	setTimeout(function(){ window.location.href = '../../06_Lamp.html'; }, 15000);
