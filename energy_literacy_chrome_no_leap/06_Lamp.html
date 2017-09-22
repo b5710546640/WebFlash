@@ -86,10 +86,12 @@ function handleComplete() {
 					document.getElementById("video").setAttribute("src", "webm/"+lamp+".webm");
 					$("#animation_container").hide();
 					$("#layer2").hide();
+					document.getElementById("video").onended = function() {
+							sessionStorage.clear();
+					    window.location = "06_Lamp.html";
+					};
 		}else{
-			$("#pt-main").hide();
-			$("#animation_container").show();
-			$("#layer2").show();
+			init();
 		}
 
 	}
@@ -111,7 +113,7 @@ function handleComplete() {
 		</div>
 		<div id="layer2" width="1920" height="1080" style="position: absolute; z-index: -1;"></div>
 	</div>
-	<div id="pt-main" class="pt-perspective" style="display: block;">
+	<div id="pt-main" class="pt-perspective" style="display: hide;">
 		<video id="video" autoplay>
 		</video>
 	</div>
