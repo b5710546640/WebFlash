@@ -65,9 +65,9 @@ $("#pt-main").swipe({
 			PageTransitions.nextPage({"animation": 1, "showPage": curPage.linkPages.right});
 		}
 	},
-	
+
 	threshold: 0
-	
+
 });
 
 
@@ -84,12 +84,12 @@ function LeapHandler(fh) {
 	//$("#leap-info pre").text("fingers: " + JSON.stringify(fh.fingers, null, " "));
 	//$("#leap-info pre").text("gesture: " + JSON.stringify(fh.gesture, null, " "));
 	$("#leap-info pre").text("hands: " + JSON.stringify(fh.hands, null, " "));
-	
+
 	LeapPointerDraw(fh.hands);
-	
+
 	if (leapEnable) {
 		var curPage = $(".pt-page-current")[0];
-		
+
 		//check fingers appear
 		if (fh.fingers.length>0) {
 			if (typeof curPage.noTimeout !== "undefined") {
@@ -189,7 +189,7 @@ function LeapGestureChangePage(gesture, curPage) {
 			}
 		}
 		//$("#leap-info").html(tmpStr);
-		  
+
 	}
 }
 

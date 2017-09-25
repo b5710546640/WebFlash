@@ -1,71 +1,60 @@
-var debug=0;            // increasing level of debug output
-var numSwipes=0;        // total count of swipes seen
-var numSwipesLeft=0;
-var numSwipesRight=0;
-var numTaps=0;
+//Leap controller
+var leapEnable = false;
+var leapCnt = 0;
+//register the Leapmotion handler function
+if (external.AddListenerForLeapMotion)
+	external.AddListenerForLeapMotion(LeapHandler);
 
-var controller = new Leap.Controller({enableGestures: true});
+function LeapHandler(fh) {
+	//$("#leap-info pre").text("fingers: " + JSON.stringify(fh.fingers, null, " "));
+	//$("#leap-info pre").text("gesture: " + JSON.stringify(fh.gesture, null, " "));
+	// $("#leap-info pre").text("hands: " + JSON.stringify(fh.hands, null, " "));
+	//
+	// LeapPointerDraw(fh.hands);
 
-controller.on('connect', function() {
-	console.log("leapmotion:sucessful connection");
-	// foundLeap(); // let the user know we found it
-});
+	// if (leapEnable) {
+		console.log(currentPage);
+	//
+	// 	//check fingers appear
+	// 	if (fh.fingers.length>0) {
+	// 		if (typeof curPage.noTimeout !== "undefined") {
+	// 			//PageTransitions.nextPage({"animation": 58, "showPage": curPage.linkPages.right});
+	// 			PageTransitions.nextPage({"animation": 1, "showPage": curPage.linkPages.right});
+	// 			return;
+	// 		}
+	// 	}
 
-controller.on('deviceConnected', function() {
-	console.log("leapmotion:leap device has been connected");
-});
-
-controller.on('deviceDisconnected', function() {
-	console.log("leapmotion:device disconnect");
-});
-
-// the gesture callback occurs on gesture detection by the leap controller,
-// from here you decide which gestures that you want to handle
-controller.on('gesture', function (gesture) {
-		if (gesture.type == 'swipe') {
-			handleSwipe(gesture);
-		}
-		if (gesture.type == 'screenTap') {
-			handleTap(gesture);
-		}
-
-});
-
-// this is where start using the leap (if one is detected)
-controller.connect();
-
-// this function is called when we want to handle a swipe gesture,
-// we are just going to keep a few counts of what was detected
-function handleSwipe(swipe) {
-	if (swipe.state == 'stop') {
-		if (debug>0) console.log("found a swipe, " + numSwipes);
-		numSwipes++;
-
-		// the swipe object will tell us which direction the swipe was in
-		if (swipe.direction[0] > 0) {
-			window.history.back();
-			numSwipesRight++;
-		} else {
-			window.location.href = '../../06_Lamp.html';
-			console.log('back');
-			numSwipesLeft++;
-		}
-	}
-
-	// update the webpage with out current count data
-	// refreshCounts();
+		LeapHandChangePage(fh.hands);
+		//LeapGestureChangePage(fh.gesture, curPage);
+	//
+	// }
 }
 
-// taps (poke at the screen) seem a little more difficult to detect correctly,
-// i am regularly either missing the tap or getting both a swipe and a tap detection
-// (but at least it is doing something)
-function handleTap(tap) {
-		if (debug>0) console.log("found a tap, " + numTaps);
-		numTaps++;
-
-	// update the webpage with out current count data
-	// refreshCounts();
-
-}
-
-	setTimeout(function(){ window.location.href = '../../06_Lamp.html'; }, 15000);
+ function LeapHandChangePage(hands) {
+ 	if (hands.length>0) {
+ 		var z = hands[0][2],
+ 				velX = hands[0][3],
+ 				velY = hands[0][4];
+ 		if (z<0.6) {
+ 			if (Math.abs(velX)>=Math.abs(velY)) {
+ 				if (Math.abs(velX)>800) {
+ 					if (velX>0) {
+ 						console.log('LEFT'+velX);
+						window.location.href = '03-5_Factory.html';
+ 					} else {
+						console.log('RIGHT');
+ 						window.location.href = '../../lightSelection.html';
+ 					}
+ 				}
+ 			} else {
+ 				if (Math.abs(velY)>500) {
+ 					if (velY>0) {
+						window.location.href = '03-5_Factory.html';
+ 					} else {
+ 					// 	window.location.href = '../../06_Lamp.html';
+ 					}
+ 				}
+ 			}
+ 		}
+ 	}
+ }
