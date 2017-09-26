@@ -75,7 +75,7 @@ function handleComplete() {
 	fnStartAnimation();
 }
 </script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script src="js/ajax.js" type="text/javascript"></script>
 <script>
 	var b = function(){
 		init();
@@ -91,7 +91,7 @@ function handleComplete() {
 					}
 					document.getElementById("video").onended = function() {
 							sessionStorage.clear();
-					    window.location = "06_Lamp.html";
+					    window.location = "lightSelection.html";
 					};
 		}else{
 			init();

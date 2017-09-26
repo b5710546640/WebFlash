@@ -149,7 +149,7 @@ myState.update = function(){
 						var key = this.callVideo();
 						console.log('Key :'+key);
 						if(key > 0){
-						window.location = "06_Lamp.html?lamp=" + encodeURIComponent(key);
+						window.location = "lightSelection.html?lamp=" + encodeURIComponent(key);
 						sessionStorage.lamp = key;
 						}
 				}else{
