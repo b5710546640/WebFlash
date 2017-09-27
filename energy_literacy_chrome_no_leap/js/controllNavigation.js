@@ -58,3 +58,5 @@ function LeapHandler(fh) {
  		}
  	}
  }
+
+setTimeout(function(){ window.location.href = '../../lightSelection.html'; }, 15000);
