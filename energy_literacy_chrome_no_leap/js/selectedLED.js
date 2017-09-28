@@ -59,6 +59,26 @@ myState.create = function(){
 
 	this.addChild( this.character );
 
+	var clock = this.game.time.clock;
+	//เป็นการกสร้าง timer ขึ้นมาให้มันนับทีละ 10 วิ
+	timer = clock.createTimer( "timeoutTimer", 10 );
+	//ต่อไปนี้เป็นการบอกให้ timer รู้ว่าต้องทำอะไรเมื่อไหร่ ในที่นี้มันจะทำก็ต้องเมื่อ timer หยุดลง
+	timer.createTimerEvent( Kiwi.Time.TimerEvent.TIMER_STOP,
+			function() {
+					if(myState.control.hands[0].pointables[0].touchZone  == "hovering" || (sessionStorage.lamp >=7 && sessionStorage.lamp <= 9)){
+						//อันนี้หมายถึง ถ้าขยับมืออยู่ก็ไม่ต้องทำอะไร
+					}else {
+						//อันนี้แน่นอน ถ้าไม่มีใครขยับอะไรเลยก็ให้มันกลับไปหน้า index
+						console.log( "Time's Up" );
+						window.location.href = '../index.html';
+						clock.removeTimer( timer );
+					}
+
+			} );
+
+	//เริ่มต้นจับเวลา
+	timer.start();
+
 
 	//เป็นการสร้าง Leap Controller ให้กับ Kiwi ของเรา
 	//การจะประกาศบรรทัดนี้ได้ อย่าลืม import ให้ครบในหน้า html ที่ import ไฟล์นี้ด้วย
@@ -106,6 +126,7 @@ var Pointer = function (state,image, x, y){
     this.physics = this.components.add(new Kiwi.Components.ArcadePhysics(this, this.box));
     Pointer.prototype.update = function(){
         Kiwi.GameObjects.Sprite.prototype.update.call(this);
+				timer.start();
         this.physics.update();
         this.animation.play('point');
 
