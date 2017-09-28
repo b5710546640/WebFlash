@@ -59,4 +59,4 @@ function LeapHandler(fh) {
  	}
  }
 
-setTimeout(function(){ window.location.href = '../../lightSelection.html'; }, 15000);
+setTimeout(function(){ window.location.href = '../../user/05-1_user.html'; }, 15000);

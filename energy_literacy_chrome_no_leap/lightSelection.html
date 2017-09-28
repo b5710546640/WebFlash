@@ -13,7 +13,7 @@
 <meta name="authoring-tool" content="Adobe_Animate_CC">
 <title>เลือกหลอดไฟ</title>
 <script src="js/createjs-2015.11.26.min.js"></script>
-<script src="lightSelection.js"></script>		<script src="js/leap-0.6.0.js"></script>
+<script src="js/leap-0.6.0.js"></script>
 <script type="text/javascript" src="js/kiwi.js"></script>
 <script src="src/touchButton-1.0.0.js"></script>
 <script type="text/javascript" src="js/LEAPController-0.1.4.js"></script>
@@ -82,6 +82,7 @@ function handleComplete() {
 		var lamp = sessionStorage.lamp;
 		console.log(lamp+" != undefined = "+(lamp == null));
 		if(lamp > 0){
+					console.log("Play video");
 					$("#pt-main").show();
 					document.getElementById("video").setAttribute("src", "webm/Lamp"+(lamp-6)+".webm");
 					$("#animation_container").hide();
@@ -105,7 +106,7 @@ function handleComplete() {
 </script>
 <!-- write your code here -->
 </head>
-<body onload="init();" style="margin:0px;">
+<body onload="b();" style="margin:0px;">
 
 	<div style="position: relative;">
 		<div id="layer1" style="position: absolute; z-index: 2; bottom: 50px; width:1920px; height:500px">
@@ -120,6 +121,7 @@ function handleComplete() {
 	</div>
 	<div id="pt-main" style="display: none;">
 		<video id="video"   width="1920" height="1080"  autoplay>
+			<source src="webm/Lamp1.webm" type="video/webm">
 		</video>
 	</div>
 	<audio autoplay loop>
