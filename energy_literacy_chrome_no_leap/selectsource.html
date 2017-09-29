@@ -45,20 +45,16 @@
 </style>
 <!-- write your code here -->
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 
 <script src="js/createjs-2015.11.26.min.js"></script>
 <script src="js/leap-0.6.0.js"></script>
 <script type="text/javascript" src="js/kiwi.js"></script>
 <script src="src/touchButton-1.0.0.js"></script>
 <script type="text/javascript" src="js/selectedButton.js"></script>
-<script type="text/javascript" src="js/leapcontrol.js"></script>
+<!-- <script type="text/javascript" src="js/leapcontrol.js"></script> -->
 <script type="text/javascript" src="js/LEAPController-0.1.4.js"></script>
 <script type="text/javascript" src="js/BeltAnimation.js"></script>
 <script>
@@ -116,42 +112,6 @@ function handleComplete() {
 	fnStartAnimation();
 }
 </script>
-<script>
-	layer1 = document.getElementById("layer1");
-	layer2 = document.getElementById("layer2");
-	var $el = $("#layer2");
-	var elHeight = $el.outerHeight();
-	var elWidth = $el.outerWidth();
-
-	var $wrapper = $("#scaleable-wrapper");
-
-	$wrapper.resizable({
-	  resize: doResize
-	});
-
-	function doResize(event, ui) {
-
-	  var scale, origin;
-
-	  scale = Math.min(
-	    ui.size.width / elWidth,
-	    ui.size.height / elHeight
-	  );
-
-	  $el.css({
-	    transform: "translate(-50%, -50%) " + "scale(" + scale + ")"
-	  });
-
-	}
-
-	var starterData = {
-	  size: {
-	    width: $wrapper.width(),
-	    height: $wrapper.height()
-	  }
-	}
-	doResize(null, starterData);
-</script>
 <!-- write your code here -->
 </head>
 <body onload="init();" style="margin:0px;">
@@ -172,6 +132,9 @@ function handleComplete() {
 
 <audio autoplay loop>
   <source src="audio/Rainy_Day_Games.mp3" type="audio/mpeg">
+</audio>
+<audio autoplay>
+	<source src="audio/voice/voice_suggestion_source.mp3" type="audio/mpeg">
 </audio>
 
 	<!-- <div id="animation_container" style="background-color:rgba(255, 255, 255, 1.00); width:1920px; height:130px">
