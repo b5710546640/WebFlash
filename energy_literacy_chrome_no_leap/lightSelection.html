@@ -96,6 +96,8 @@ function handleComplete() {
 					};
 		}else{
 			init();
+			document.getElementById("suggestion").setAttribute("src", "audio/voice/voice_suggestion_light.mp3");
+			document.getElementById("sound").setAttribute("src", "audio/Rainy_Day_Games.mp3");
 			if (external.LedIntensity) {
 				for (var i=0; i<16; i++) {
 					external.LedIntensity(i, 0);
@@ -123,11 +125,11 @@ function handleComplete() {
 		<video id="video"   width="1920" height="1080"  autoplay>
 		</video>
 	</div>
-	<audio autoplay loop>
-	  <source src="audio/Rainy_Day_Games.mp3" type="audio/mpeg">
+	<audio id="sound" autoplay loop>
+	  <!-- <source src="audio/Rainy_Day_Games.mp3" type="audio/mpeg"> -->
 	</audio>
-	<audio autoplay>
-	  <source src="audio/voice/voice_suggestion_light.mp3" type="audio/mpeg">
+	<audio id="suggestion" autoplay>
+	  <!-- <source src="audio/voice/voice_suggestion_light.mp3" type="audio/mpeg"> -->
 	</audio>
 
 
