@@ -40,14 +40,14 @@ myState.create = function(){
   this.character.physics = this.components.add(new Kiwi.Components.ArcadePhysics(this.character, this.character.box));
 	//เนื่องจากเรามากล่องพลังงานที่ทำงานคล้ายๆกันเยอะมาก เลยสร้างกรุ้ปไว้ให้มัน
 	this.buttonGroup = new Kiwi.Group(this);
-	this.coal = new Button( this, this.textures.coal,298,150,'energy_source/01/03-1_1.html');
-  this.petroleum = new Button( this, this.textures.petroleum, 656,150,'energy_source/02/03-2_1.html');
-	this.nuclear = new Button( this, this.textures.nuclear, 1014,150,'energy_source/03/03-3_1.html');
-  this.gas = new Button( this, this.textures.gas, 1372,150,'energy_source/04/03-4_1.html');
-  this.water = new Button( this, this.textures.water, 298,473,'energy_source/05/03-5_1.html');
-  this.sun = new Button( this, this.textures.sun, 656,473,'energy_source/06/03-6_1.html');
-  this.wind = new Button( this, this.textures.wind, 1014,473,'energy_source/07/03-7_1.html');
-	this.underworld = new Button( this, this.textures.underworld, 1372,473,'energy_source/08/03-8_1.html');
+	this.coal = new Button( this, this.textures.coal,298,150,'energy_source/01/03-1_1.html',23,24,30);
+  this.petroleum = new Button( this, this.textures.petroleum, 656,150,'energy_source/02/03-2_1.html',23,23,28);
+	this.nuclear = new Button( this, this.textures.nuclear, 1014,150,'energy_source/03/03-3_1.html',23,23,28);
+  this.gas = new Button( this, this.textures.gas, 1372,150,'energy_source/04/03-4_1.html',23,23,28);
+  this.water = new Button( this, this.textures.water, 298,473,'energy_source/05/03-5_1.html',21,21,26);
+  this.sun = new Button( this, this.textures.sun, 656,473,'energy_source/06/03-6_1.html',21,21,25);
+  this.wind = new Button( this, this.textures.wind, 1014,473,'energy_source/07/03-7_1.html',22,21,26);
+	this.underworld = new Button( this, this.textures.underworld, 1372,473,'energy_source/08/03-8_1.html',21,22,26);
 
 	//ทุกๆ Component ที่เรา new ขึ้นมาจะยังไม่สามารถมองเห็นได้ในตอนนี้
 	//โดยเพื่อจะแสดงออกมาให้ปรากฏใน Canvas เราจะต้องใช้คำสั่ง this.addChild(ก็ชื่อตามที่ new ขึ้นมา);
@@ -105,13 +105,6 @@ myState.create = function(){
 myState.update = function(){
   Kiwi.State.prototype.update.call(this);
 
-
-	// if( this.petroleum.isDown ){
-	// 	this.petroleum.physics.velocity.y = 73;
-	// }
-
-	console.log('update' + this.control.hands[0].pointables[0].touchDistance);
-
 	this.character.scaleX = (this.control.hands[0].posY - 20)/100;
 	this.character.scaleY = (this.control.hands[0].posY - 20)/100;
 
@@ -155,7 +148,6 @@ myState.update = function(){
 
 		var chkBtn = this.buttonGroup.members;
 		for (var i = 0; i < chkBtn.length; i++) {
-			console.log(chkBtn[i].x);
 			if(chkBtn[i].x >= 1920){
 					window.location.href = chkBtn[i].page;
 			}
@@ -202,12 +194,12 @@ myState.updateTheVelocity = function(){
 
 }
 
-var Button = function (state,image, x, y, page){
+var Button = function (state,image, x, y, page, t1, t2, t3){
     Kiwi.Plugins.GameObjects.TouchButton.call(this, state, image, x, y);
 
-		this.page = page;
+		this.page = page+'?'+t1+'?'+t2+'?'+t3;
 		this.originalX = x;
-
+		console.log(this.page);
     this.animation.add('float', [0], 0.05, false);
     this.animation.add('lay', [1], 0.05, true);
     this.animation.play('lay');
@@ -240,7 +232,6 @@ var Button = function (state,image, x, y, page){
 		this.fallen = function(){
 			this.animation.play('lay');
 			if(this.y >= 600){
-				console.log(this.y);
 				this.physics.velocity.y = 0;
 				this.physics.acceleration.y = 0;
 				this.x += 7.30;

@@ -16,6 +16,7 @@
 <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
 <script src="energy_literacy_chrome_no_leap/js/leap-0.6.0.js"></script>
 <script src="index.js"></script>
+<!-- <script src="energy_literacy_chrome_no_leap/js/controllNavigation.js"></script> -->
 <script>
 var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
 function init() {
@@ -76,62 +77,7 @@ function handleComplete(evt,comp) {
 	fnStartAnimation();
 }
 </script>
-<script>
-// Store frame for motion functions
-var previousFrame = null;
-var paused = false;
-var pauseOnGesture = false;
-// Setup Leap loop with frame callback function
-var controllerOptions = {enableGestures: true};
-Leap.loop(controllerOptions, function(frame) {
-if (paused) {
-	return; // Skip this update
-}
-// Display Hand object data
-var handOutput = document.getElementById("handData");
-var handString = "";
-if (frame.hands.length > 0) {
-	for (var i = 0; i < frame.hands.length; i++) {
-		var hand = frame.hands[i];
-		handString += "<div style='width:400px; float:left; padding:5px'>";
-		handString += "id มือ: " + hand.id + "<br />";
-		handString += "ข้างที่ใช้: " + hand.type + "<br />";
-		handString += "ทิศทาง: " + vectorToString(hand.direction, 2) + "<br />";
-		handString += "กำมือ: " + hand.grabStrength + "<br />";
-		if(hand.grabStrength===1 && hand.type === 'right'){
-			console.log("Go to next page");
-			console.log(hand.type);
-			window.location.href = 'energy_literacy_chrome_no_leap/selectsource.html';
-		}
-		// IDs of pointables associated with this hand
-		if (hand.pointables.length > 0) {
-			var fingerIds = [];
-			for (var j = 0; j < hand.pointables.length; j++) {
-				var pointable = hand.pointables[j];
-					fingerIds.push(pointable.id);
-			}
-			if (fingerIds.length > 0) {
-				handString += "ID มือ และ นิ้ว: " + fingerIds.join(", ") + "<br />";
-			}
-		}
-		handString += "</div>";
-	}
-}
-else {
-	handString += "No hands detect";
-}
-// handOutput.innerHTML = handString;
-previousFrame = frame;
-})
-function vectorToString(vector, digits) {
-if (typeof digits === "undefined") {
-	digits = 1;
-}
-return "(" + vector[0].toFixed(digits) + ", "
-					 + vector[1].toFixed(digits) + ", "
-					 + vector[2].toFixed(digits) + ")";
-}
-</script>
+<script></script>
 <!-- write your code here -->
 </head>
 <body onload="init();" style="margin:0px;">
