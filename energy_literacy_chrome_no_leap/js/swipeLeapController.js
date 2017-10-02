@@ -1,27 +1,27 @@
-function findNextPage(){
+var timer;
+var nextPage;
+var previousPage;
+
+
+function findNearPage(){
 	var filename = location.href.split('/')[ location.href.split('/').length - 1 ];
-	var temp_arr = filename.split('_');
-	var prefix_arr = temp_arr[0].split('-');
-	var subfix_arr = temp_arr[1].split('.');
-	var curr_index = parseInt(subfix_arr[0]);
-	var curr_source = parseInt(prefix_arr[0]);
-	console.log(curr_index);
-	console.log(curr_source);
+  console.log(filename=='index.html');
 	if(filename=='index.html'){
-		return 'energy_literacy_chrome_no_leap/selectsource.html';
-	}else if(filename=='lightSelection.html'){
-
+    nextPage = 'energy_literacy_chrome_no_leap/selectsource.html';
+    previousPage = 'none';
+  }else if(filename=='lightSelection.html'){
+    previousPage = 'energy_literacy_chrome_no_leap/selectsource.html';
+    nextPage = '../index.html';
   }
-	return 'index.html';
 }
-
-var nextPage = findNextPage();
-console.log(nextPage);
 
 //Leap controller
 var leapEnable = false;
 var leapCnt = 0;
+findNearPage();
 //register the Leapmotion handler function
+
+console.log('Swipe file');
 if (external.AddListenerForLeapMotion)
 	external.AddListenerForLeapMotion(LeapHandler);
 
@@ -33,7 +33,7 @@ function LeapHandler(fh) {
 	// LeapPointerDraw(fh.hands);
 
 	// if (leapEnable) {
-		console.log(currentPage);
+		// console.log(currentPage);
 	//
 	// 	//check fingers appear
 	// 	if (fh.fingers.length>0) {
@@ -55,23 +55,28 @@ function LeapHandler(fh) {
  		var z = hands[0][2],
  				velX = hands[0][3],
  				velY = hands[0][4];
+        console.log(nextPage);
+        console.log(previousPage);
  		if (z<0.6) {
  			if (Math.abs(velX)>=Math.abs(velY)) {
  				if (Math.abs(velX)>800) {
  					if (velX>0) {
  						console.log('LEFT'+velX);
- 					window.location.href = '03-5_Factory.html';
+            if(previousPage!='none')
+            window.location.href = previousPage;
+
  					} else {
  					console.log('RIGHT');
- 						window.location.href = '../../lightSelection.html';
+            window.location.href = nextPage;
+
  					}
  				}
  			} else {
  				if (Math.abs(velY)>500) {
  					if (velY>0) {
- 					window.location.href = '03-5_Factory.html';
+
  					} else {
- 					// 	window.location.href = '../../06_Lamp.html';
+
  					}
  				}
  			}
