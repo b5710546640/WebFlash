@@ -1,3 +1,5 @@
+var timer;
+
 function findNextPage(){
 	var filename = location.href.split('/')[ location.href.split('/').length - 1 ];
 	var temp_arr = filename.split('_');
@@ -7,12 +9,18 @@ function findNextPage(){
 	var curr_source = parseInt(prefix_arr[0]);
 	console.log(curr_index);
 	console.log(curr_source);
-	if(curr_index==3) return '../../lightSelection.html';
+	if(curr_index==3){
+		timer = 25650;
+		return '../../lightSelection.html';
+	}
 	curr_source++;
 	curr_index++;
+	timer = 21000;
 	let p = '0'+curr_source;
 	return (p+'-'+prefix_arr[1]+'_'+curr_index+'.html');
 }
+
+
 
 //Leap controller
 var leapEnable = false;
@@ -78,4 +86,4 @@ function LeapHandler(fh) {
 var nextPage = findNextPage();
 console.log(nextPage);
 
-setTimeout(function(){ window.location.href = nextPage; }, 15000);
+setTimeout(function(){ window.location.href = nextPage; }, timer);

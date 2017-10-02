@@ -40,14 +40,14 @@ myState.create = function(){
   this.character.physics = this.components.add(new Kiwi.Components.ArcadePhysics(this.character, this.character.box));
 	//เนื่องจากเรามากล่องพลังงานที่ทำงานคล้ายๆกันเยอะมาก เลยสร้างกรุ้ปไว้ให้มัน
 	this.buttonGroup = new Kiwi.Group(this);
-	this.coal = new Button( this, this.textures.coal,298,150,'03_Factory/03-1_Factory+.html');
-  this.petroleum = new Button( this, this.textures.petroleum, 656,150,'03_Factory/03-2_Factory+.html');
-	this.nuclear = new Button( this, this.textures.nuclear, 1014,150,'03_Factory/03-3_Factory+.html');
-  this.gas = new Button( this, this.textures.gas, 1372,150,'03_Factory/03-4_Factory+.html');
-  this.water = new Button( this, this.textures.water, 298,473,'03_Factory/03-5_Factory+.html');
-  this.sun = new Button( this, this.textures.sun, 656,473,'03_Factory/03-6_Factory+.html');
-  this.wind = new Button( this, this.textures.wind, 1014,473,'03_Factory/03-7_Factory+.html');
-	this.underworld = new Button( this, this.textures.underworld, 1372,473,'03_Factory/03-8_Factory+.html');
+	this.coal = new Button( this, this.textures.coal,298,150,'energy_source/01/03-1_1.html');
+  this.petroleum = new Button( this, this.textures.petroleum, 656,150,'energy_source/02/03-2_1.html');
+	this.nuclear = new Button( this, this.textures.nuclear, 1014,150,'energy_source/03/03-3_1.html');
+  this.gas = new Button( this, this.textures.gas, 1372,150,'energy_source/04/03-4_1.html');
+  this.water = new Button( this, this.textures.water, 298,473,'energy_source/05/03-5_1.html');
+  this.sun = new Button( this, this.textures.sun, 656,473,'energy_source/06/03-6_1.html');
+  this.wind = new Button( this, this.textures.wind, 1014,473,'energy_source/07/03-7_1.html');
+	this.underworld = new Button( this, this.textures.underworld, 1372,473,'energy_source/08/03-8_1.html');
 
 	//ทุกๆ Component ที่เรา new ขึ้นมาจะยังไม่สามารถมองเห็นได้ในตอนนี้
 	//โดยเพื่อจะแสดงออกมาให้ปรากฏใน Canvas เราจะต้องใช้คำสั่ง this.addChild(ก็ชื่อตามที่ new ขึ้นมา);
