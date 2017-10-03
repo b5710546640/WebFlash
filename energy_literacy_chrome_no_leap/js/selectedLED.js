@@ -1,7 +1,10 @@
 //กำหนดขนาดความกว้างความสูง
+//กำหนดขนาดความกว้างความสูง
 var gameOptions = {
-	width: 1920,
-	height: 1080
+	width: innerWidth,
+	height: innerHeight,
+	plugins: ["Fullscreen"]
+
 };
 
 //รูปแบบการสร้าง Animation ด้วย KiwiJS เบื้องต้น
@@ -30,6 +33,7 @@ myState.create = function(){
 
 	//เนื่องจาก KiwiJS เอาไว้สำหรับทำเกม ดังนั้นจึงต้องมีพื้นหลัง กรณีไม่ได้เขียนบรรทัดนี้ก็จะเป็นพื้นหลังสีขาวอัตโนมัติ
   this.background = new Kiwi.GameObjects.StaticImage(this, this.textures.background, 0, 0);
+	this.game.fullscreen;
 
 	this.label1 = new Kiwi.GameObjects.Sprite(this, this.textures.label_led1, 105, 540);
 	this.label2 = new Kiwi.GameObjects.Sprite(this, this.textures.label_led2, 715, 540);
@@ -75,7 +79,7 @@ myState.create = function(){
 					}
 
 			} );
-
+	this.game.fullscreen.launchFullscreen();
 	//เริ่มต้นจับเวลา
 	timer.start();
 

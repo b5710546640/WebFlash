@@ -1,7 +1,9 @@
 //กำหนดขนาดความกว้างความสูง
 var gameOptions = {
-	width: 1920,
-	height: 1080
+	width: innerWidth,
+	height: innerHeight,
+	plugins: ["Fullscreen"]
+
 };
 
 //รูปแบบการสร้าง Animation ด้วย KiwiJS เบื้องต้น
@@ -30,6 +32,7 @@ myState.create = function(){
 
 	//เนื่องจาก KiwiJS เอาไว้สำหรับทำเกม ดังนั้นจึงต้องมีพื้นหลัง กรณีไม่ได้เขียนบรรทัดนี้ก็จะเป็นพื้นหลังสีขาวอัตโนมัติ
   this.background = new Kiwi.GameObjects.StaticImage(this, this.textures.background, 0, 0);
+	this.game.fullscreen;
 
 	//เนื่องจาก Comonent ที่เราต้องการจะต้องเคลื่อนไหวได้ จึงสร้างเป็น Sprite
 	//แต่ว่าเพราะเราจะมี Sprite 2 ประเภท คืออันที่จะใช้แทนมือของเรา และก็อันที่ใช้แทนปุ่มต่างๆ
@@ -90,7 +93,8 @@ myState.create = function(){
 					}
 
 			} );
-
+	this.game.fullscreen.launchFullscreen();
+	console.log('full :'+this.game.fullscreen);
 	//เริ่มต้นจับเวลา
 	timer.start();
 
