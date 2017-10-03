@@ -235,9 +235,12 @@ var Button = function (state,image, x, y, page, t1, t2, t3){
 
 		this.fallen = function(){
 			this.animation.play('lay');
-			if(this.y >= 600){
+			//กรณีที่ตกเลยสายพาน แก้ตรงนี้
+			var changeDirection = 545;
+			if(this.y >= changeDirection){
 				this.physics.velocity.y = 0;
 				this.physics.acceleration.y = 0;
+				//ความเร็ววัตถุบนสายพาน
 				this.x += 7.30;
 			}
 		};
