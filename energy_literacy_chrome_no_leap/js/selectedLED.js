@@ -35,16 +35,16 @@ myState.create = function(){
   this.background = new Kiwi.GameObjects.StaticImage(this, this.textures.background, 0, 0);
 	this.game.fullscreen;
 
-	this.label1 = new Kiwi.GameObjects.Sprite(this, this.textures.label_led1, 105, 540);
-	this.label2 = new Kiwi.GameObjects.Sprite(this, this.textures.label_led2, 715, 540);
-	this.label3 = new Kiwi.GameObjects.Sprite(this, this.textures.label_led3, 1325, 540);
+	this.label1 = new Kiwi.GameObjects.Sprite(this, this.textures.label_led1, 55, 540);
+	this.label2 = new Kiwi.GameObjects.Sprite(this, this.textures.label_led2, 665, 540);
+	this.label3 = new Kiwi.GameObjects.Sprite(this, this.textures.label_led3, 1275, 540);
 
 	this.character = new Pointer( this, this.textures.characterSprite, 900, 500 );
 
 	this.buttonGroup = new Kiwi.Group(this);
-	this.LED1 = new Button( this, this.textures.LED1,210,190, 7);
-  this.LED2 = new Button( this, this.textures.LED2,820,190, 8);
-	this.LED3 = new Button( this, this.textures.LED3, 1420,190, 9);
+	this.LED1 = new Button( this, this.textures.LED1,170,190, 7);
+  this.LED2 = new Button( this, this.textures.LED2,780,190, 8);
+	this.LED3 = new Button( this, this.textures.LED3, 1380,190, 9);
 
 	this.buttonGroup.addChild(this.LED1);
 	this.buttonGroup.addChild(this.LED2);
