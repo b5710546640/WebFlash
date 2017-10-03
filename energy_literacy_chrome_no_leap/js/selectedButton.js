@@ -88,7 +88,7 @@ myState.create = function(){
 					}else {
 						//อันนี้แน่นอน ถ้าไม่มีใครขยับอะไรเลยก็ให้มันกลับไปหน้า index
 						console.log( "Time's Up" );
-						// window.location.href = '../index.html';
+						window.location.href = '../index.html';
 						clock.removeTimer( timer );
 					}
 

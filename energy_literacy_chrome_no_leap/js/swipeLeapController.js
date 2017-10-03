@@ -25,12 +25,47 @@ console.log('Swipe file');
 if (external.AddListenerForLeapMotion)
 	external.AddListenerForLeapMotion(LeapHandler);
 
+	function LeapPointerDraw(hands) {
+	if (!leapEnable) {
+		$("#suggestion").hide();
+		$("#leap-pointer").hide();
+		return;
+	}
+	$("#leap-pointer").show();
+	var leapPointer = $("#leap-pointer");
+	//var leapPointerCircle = $("#leap-pointer svg circle")
+	if (hands.length>0) {
+		var x = hands[0][0],
+				y = hands[0][1],
+				z = hands[0][2];
+		$("#leap-pointer").css({"left": x*window.innerWidth-100, "top": (1-y)*window.innerHeight-100});
+		if (z<=0.6) {
+			$("#leap-pointer svg circle").attr({
+					"r": (80*(1-z)).toString(),
+					"fill": "green"
+			});
+		} else {
+			$("#leap-pointer svg circle").attr({
+					"r": (80*(1-z)).toString(),
+					"fill": "grey"
+			});
+		}
+		$("#suggestion").show();
+	} else {
+		$("#leap-pointer svg circle").attr({
+				"r": "0",
+				"fill": "grey"
+		});
+		$("#suggestion").hide();
+	}
+}
+
 function LeapHandler(fh) {
 	//$("#leap-info pre").text("fingers: " + JSON.stringify(fh.fingers, null, " "));
 	//$("#leap-info pre").text("gesture: " + JSON.stringify(fh.gesture, null, " "));
 	// $("#leap-info pre").text("hands: " + JSON.stringify(fh.hands, null, " "));
 	//
-	// LeapPointerDraw(fh.hands);
+	LeapPointerDraw(fh.hands);
 
 	// if (leapEnable) {
 		// console.log(currentPage);
